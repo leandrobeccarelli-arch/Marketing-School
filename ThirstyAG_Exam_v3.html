@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thirsty AG — Geleitete Fallstudie</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans','Segoe UI',sans-serif;background:linear-gradient(180deg,#FAF7F2,#F3EDE4);color:#2C1810;min-height:100vh}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(139,94,60,0.2)}50%{box-shadow:0 0 14px 4px rgba(139,94,60,0.1)}}
+@keyframes ab{from{height:2px}to{height:8px}}
+@keyframes spin{to{transform:rotate(360deg)}}
+input:focus,textarea:focus{border-color:#8B5E3C!important;outline:none;box-shadow:0 0 0 3px rgba(139,94,60,0.08)}
+.opt{transition:all 0.2s;cursor:pointer;border-radius:12px}.opt:hover{transform:translateY(-1px);box-shadow:0 4px 24px rgba(44,24,16,0.08)}
+.bcz{border:2px dashed #E5DDD3;border-radius:12px;min-height:56px;padding:10px;transition:all 0.2s;background:#fff}
+.bcz:hover,.bcz.over{border-color:#C4956A;background:#FBF5EE}
+.bci{padding:8px 12px;background:#F3EDE4;border:1.5px solid #E5DDD3;border-radius:10px;cursor:grab;user-select:none;touch-action:none;transition:all 0.2s}
+.bci:hover{border-color:#C4956A;box-shadow:0 2px 12px rgba(44,24,16,0.06)}
+.bci:active{cursor:grabbing;opacity:0.7;transform:scale(0.97)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:#F3EDE4}
+::-webkit-scrollbar-thumb{background:#C4956A;border-radius:3px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useCallback} = React;
+
+const C={bg:"#FAF7F2",bgCard:"#FFFFFF",bgLight:"#F3EDE4",bgWarm:"#EDE5D8",accent:"#8B5E3C",accentLight:"#C4956A",accentGold:"#D4A853",text:"#2C1810",textMid:"#5C4A3A",textDim:"#8C7B6B",success:"#4A8C5C",successLight:"#E8F5EC",danger:"#C45A5A",dangerLight:"#FDF0F0",border:"#E5DDD3",borderLight:"#F0EBE3",blue:"#4A7FB5",orange:"#C47B2B",purple:"#7B5EA7",shadow:"0 2px 12px rgba(44,24,16,0.06)",shadowLg:"0 4px 24px rgba(44,24,16,0.08)"};
+const GRAD={warm:"linear-gradient(135deg,#8B5E3C 0%,#C4956A 50%,#D4A853 100%)",header:"linear-gradient(135deg,#2C1810 0%,#5C3A28 50%,#8B5E3C 100%)",accent:"linear-gradient(135deg,#C4956A,#D4A853)"};
+const AClr={1:C.blue,2:C.orange,3:C.success,4:C.purple,5:C.danger,0:C.accent};
+const AN={1:"Marktanalyse",2:"Preiskalkulation",3:"Distribution",4:"Verkaufsförderung",5:"Launch-Bewertung",0:"Ergebnis"};
+
+function useTTS(){
+  const[isSpeaking,setS]=useState(false);const[isPaused,setP]=useState(false);
+  useEffect(()=>{const s=window.speechSynthesis;const l=()=>s.getVoices();l();s.addEventListener("voiceschanged",l);return()=>{s.removeEventListener("voiceschanged",l);s.cancel()}},[]);
+  const speak=useCallback(t=>{const s=window.speechSynthesis;s.cancel();const u=new SpeechSynthesisUtterance(t);const v=s.getVoices();const vo=v.find(x=>x.lang==="de-DE"&&x.name.includes("Google"))||v.find(x=>x.lang==="de-DE")||v.find(x=>x.lang.startsWith("de"))||v[0];if(vo)u.voice=vo;u.lang="de-DE";u.rate=0.92;u.pitch=1.05;u.onstart=()=>{setS(true);setP(false)};u.onend=()=>{setS(false);setP(false)};u.onerror=()=>{setS(false);setP(false)};s.speak(u)},[]);
+  const pause=useCallback(()=>{window.speechSynthesis.pause();setP(true)},[]);
+  const resume=useCallback(()=>{window.speechSynthesis.resume();setP(false)},[]);
+  const stop=useCallback(()=>{window.speechSynthesis.cancel();setS(false);setP(false)},[]);
+  return{speak,pause,resume,stop,isSpeaking,isPaused};
+}
+
+const Marki=({mood="neutral",size=80,speaking=false})=>{
+  const e={neutral:{l:"M32,38 L38,38",r:"M52,38 L58,38"},happy:{l:"M32,40 Q35,36 38,40",r:"M52,40 Q55,36 58,40"},thinking:{l:"M32,38 L38,38",r:"M54,36 L58,40"},excited:{l:"M31,36 L39,36 M31,40 L39,40",r:"M51,36 L59,36 M51,40 L59,40"},hint:{l:"M33,38 Q35,34 37,38",r:"M53,35 L58,35 L58,41 L53,41 Z"},serious:{l:"M31,37 L39,39",r:"M51,39 L59,37"}}[mood]||{l:"M32,38 L38,38",r:"M52,38 L58,38"};
+  return React.createElement("svg",{width:size,height:size,viewBox:"0 0 90 100",style:{filter:"drop-shadow(0 2px 8px rgba(139,94,60,0.2))"}},
+    React.createElement("defs",null,
+      React.createElement("linearGradient",{id:"bg",x1:"0",y1:"0",x2:"0",y2:"1"},React.createElement("stop",{offset:"0%",stopColor:"#C4956A"}),React.createElement("stop",{offset:"100%",stopColor:"#8B5E3C"})),
+      React.createElement("linearGradient",{id:"sg",x1:"0",y1:"0",x2:"0",y2:"1"},React.createElement("stop",{offset:"0%",stopColor:"#FBF8F4"}),React.createElement("stop",{offset:"100%",stopColor:"#F3EDE4"}))),
+    React.createElement("line",{x1:45,y1:8,x2:45,y2:18,stroke:C.accentLight,strokeWidth:2}),
+    React.createElement("circle",{cx:45,cy:6,r:3,fill:C.accentGold},speaking&&React.createElement("animate",{attributeName:"r",values:"3;5;3",dur:"0.6s",repeatCount:"indefinite"})),
+    React.createElement("rect",{x:20,y:18,width:50,height:42,rx:10,fill:"url(#bg)"}),
+    React.createElement("rect",{x:26,y:24,width:38,height:30,rx:6,fill:"url(#sg)",stroke:C.border,strokeWidth:0.5}),
+    React.createElement("path",{d:e.l,stroke:C.accent,strokeWidth:3,strokeLinecap:"round",fill:"none"}),
+    React.createElement("path",{d:e.r,stroke:C.accent,strokeWidth:3,strokeLinecap:"round",fill:"none"}),
+    speaking?React.createElement("ellipse",{cx:45,cy:49,rx:5,ry:2.5,fill:C.accent,opacity:0.7},React.createElement("animate",{attributeName:"ry",values:"1.5;3.5;1;2.5;1.5",dur:"0.4s",repeatCount:"indefinite"})):mood==="happy"||mood==="excited"?React.createElement("path",{d:"M38,47 Q45,53 52,47",stroke:C.accent,strokeWidth:2,fill:"none",strokeLinecap:"round"}):mood==="thinking"?React.createElement("circle",{cx:47,cy:49,r:2,fill:C.accent}):React.createElement("line",{x1:39,y1:49,x2:51,y2:49,stroke:C.accent,strokeWidth:2,strokeLinecap:"round"}),
+    speaking&&React.createElement("path",{d:"M72,30 Q77,38 72,46",stroke:C.accentLight,strokeWidth:1.5,fill:"none",opacity:0.5},React.createElement("animate",{attributeName:"opacity",values:"0.2;0.6;0.2",dur:"0.8s",repeatCount:"indefinite"})),
+    React.createElement("rect",{x:28,y:62,width:34,height:20,rx:6,fill:"url(#bg)"}),
+    React.createElement("circle",{cx:45,cy:72,r:3,fill:C.accentGold,opacity:0.8},React.createElement("animate",{attributeName:"opacity",values:"0.5;1;0.5",dur:"2s",repeatCount:"indefinite"})),
+    React.createElement("rect",{x:16,y:65,width:10,height:5,rx:2.5,fill:C.accentLight}),
+    React.createElement("rect",{x:64,y:65,width:10,height:5,rx:2.5,fill:C.accentLight})
+  );
+};
+
+const Bubble=({text,type="info",tts})=>{
+  const[dt,setDt]=useState("");const[done,setDn]=useState(false);
+  useEffect(()=>{setDt("");setDn(false);let i=0;const iv=setInterval(()=>{i++;setDt(text.slice(0,i));if(i>=text.length){clearInterval(iv);setDn(true)}},12);return()=>clearInterval(iv)},[text]);
+  const cls={hint:{bg:"#FFF8EE",bc:C.orange,ic:"💡"},success:{bg:C.successLight,bc:C.success,ic:"✅"},warning:{bg:C.dangerLight,bc:C.danger,ic:"⚠️"},scenario:{bg:"#EEF4FB",bc:C.blue,ic:"📊"},ai:{bg:"#F3EEF8",bc:C.purple,ic:"🤖"},info:{bg:"#FBF8F4",bc:C.accent,ic:"🔧"}};
+  const cl=cls[type]||cls.info;
+  return React.createElement("div",{style:{background:cl.bg,border:"1.5px solid "+cl.bc+"33",borderRadius:14,padding:"10px 14px",flex:1,boxShadow:"0 2px 10px "+cl.bc+"11",borderLeft:"4px solid "+cl.bc}},
+    React.createElement("div",{style:{display:"flex",gap:6,alignItems:"flex-start"}},
+      React.createElement("div",{style:{flex:1}},
+        React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:3}},
+          React.createElement("span",{style:{color:cl.bc,fontFamily:"'DM Sans'",fontSize:9,fontWeight:700,textTransform:"uppercase",letterSpacing:1.5}},cl.ic," MARKI"),
+          React.createElement("div",{style:{display:"flex",gap:2}},
+            !tts.isSpeaking?React.createElement("button",{onClick:()=>tts.speak(text),style:{background:cl.bc+"11",border:"1px solid "+cl.bc+"33",borderRadius:6,color:cl.bc,cursor:"pointer",padding:"2px 8px",fontSize:10,fontWeight:600}},"▶ Play"):
+            React.createElement(React.Fragment,null,
+              React.createElement("button",{onClick:tts.isPaused?tts.resume:tts.pause,style:{background:cl.bc+"11",border:"1px solid "+cl.bc+"33",borderRadius:6,color:cl.bc,cursor:"pointer",padding:"2px 6px",fontSize:10}},tts.isPaused?"▶":"⏸"),
+              React.createElement("button",{onClick:tts.stop,style:{background:C.danger+"11",border:"1px solid "+C.danger+"33",borderRadius:6,color:C.danger,cursor:"pointer",padding:"2px 6px",fontSize:10}},"⏹")))),
+        tts.isSpeaking&&!tts.isPaused&&React.createElement("div",{style:{display:"flex",gap:2,height:8,alignItems:"end",marginBottom:3}},Array.from({length:10}).map((_,i)=>React.createElement("div",{key:i,style:{width:2.5,borderRadius:1,background:cl.bc,opacity:0.6,animation:"ab 0."+(3+i%4)+"s ease-in-out "+i*0.04+"s infinite alternate"}}))),
+        React.createElement("span",{style:{color:C.text,fontSize:12.5,lineHeight:"1.6"}},dt,!done&&React.createElement("span",{style:{animation:"blink 0.5s infinite",color:cl.bc}},"▊")))))
+};
+
+const Timer=({running})=>{
+  const[secs,setSecs]=useState(180*60);
+  useEffect(()=>{if(!running)return;const iv=setInterval(()=>setSecs(s=>Math.max(0,s-1)),1000);return()=>clearInterval(iv)},[running]);
+  const h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60),ss=secs%60,urgent=secs<600;
+  return React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:13,fontWeight:600,color:urgent?C.danger:C.accent,padding:"4px 10px",background:urgent?C.dangerLight:C.bgLight,border:"1.5px solid "+(urgent?C.danger+"44":C.border),borderRadius:10}},"⏱ "+h+":"+String(m).padStart(2,"0")+":"+String(ss).padStart(2,"0"));
+};
+
+const Notepad=({open,onClose})=>{
+  const[text,setText]=useState("");
+  if(!open)return null;
+  return React.createElement("div",{style:{position:"fixed",right:0,top:0,bottom:0,width:320,background:C.bgCard,borderLeft:"1px solid "+C.border,zIndex:100,display:"flex",flexDirection:"column",boxShadow:"-4px 0 30px rgba(44,24,16,0.1)"}},
+    React.createElement("div",{style:{padding:"12px 16px",borderBottom:"1px solid "+C.border,display:"flex",justifyContent:"space-between",alignItems:"center",background:C.bgLight}},
+      React.createElement("span",{style:{fontSize:13,fontWeight:700,color:C.accent}},"📝 Notizblock"),
+      React.createElement("button",{onClick:onClose,style:{background:"none",border:"none",color:C.textDim,cursor:"pointer",fontSize:18}},"✕")),
+    React.createElement("textarea",{value:text,onChange:e=>setText(e.target.value),placeholder:"Nebenrechnungen, Notizen...",style:{flex:1,background:"#FFFDF8",color:C.text,border:"none",padding:14,fontFamily:"'DM Mono',monospace",fontSize:12,resize:"none",outline:"none",lineHeight:1.7}}));
+};
+
+async function getAIFeedback(q,answer){
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:"Du bist MARKI, ein freundlicher Lern-Assistent. Bewerte auf Deutsch. Gib Punkte (0-"+(q.points||4)+"), nenne was gut war und was fehlt. Max 4 Sätze.\n\nAufgabe: "+q.prompt+"\nMusterlösung: "+q.solution+"\nAntwort: "+answer+"\n\nBewertung:"}]})});
+    const data=await res.json();return data.content?.map(b=>b.text||"").join("")||"Bewertung nicht verfügbar.";
+  }catch{return "AI-Feedback nicht verfügbar. Vergleiche mit der Musterlösung.";}
+}
+
+const Btn=({children,onClick,variant="primary",disabled,style:sx})=>{
+  const sty={primary:{background:GRAD.warm,color:"#fff",border:"none",fontWeight:700,boxShadow:"0 2px 8px rgba(139,94,60,0.25)"},
+    secondary:{background:C.bgCard,color:C.accent,border:"1.5px solid "+C.accent+"44",fontWeight:600},
+    outline:{background:"transparent",color:C.orange,border:"1.5px solid "+C.orange+"44",fontWeight:600},
+    ai:{background:"linear-gradient(135deg,#7B5EA7,#9B7EC8)",color:"#fff",border:"none",fontWeight:700,boxShadow:"0 2px 8px rgba(123,94,167,0.25)"}};
+  return React.createElement("button",{onClick,disabled,style:{fontFamily:"'DM Sans'",fontSize:11,padding:"8px 16px",borderRadius:10,cursor:disabled?"not-allowed":"pointer",letterSpacing:0.5,transition:"all 0.2s",opacity:disabled?0.5:1,...sty[variant],...sx}},children);
+};
+
+const STEPS=[
+  {a:1,id:"a1_intro",type:"scenario",title:"Aufgabe 1 — Marktanalyse",pts:"24P",marki:{text:"Willkommen zur Thirsty AG Prüfung! Du bist Produktmanager Erfrischungsgetränke. Los geht's mit der Marktanalyse!",mood:"happy"},facts:[{l:"Unternehmen",v:"Thirsty AG, Zentralschweiz"},{l:"Umsatz Gesamt",v:"CHF 52 Mio."},{l:"Umsatz Erfrisch.",v:"CHF 23 Mio."},{l:"Marke K",v:"Apple, Orange, Lemon"},{l:"Marktvolumen",v:"CHF 287 Mio."},{l:"Grösster Wettbewerber",v:"Cola C (25%)"}]},
+  {a:1,id:"a1_markt",type:"multi_calc",title:"1.1 Marktkennzahlen berechnen",pts:"8P",marki:{intro:"Berechne die wichtigsten Kennzahlen. Nutze die Referenztabelle!",hint:"Marktanteil gleich eigener Umsatz geteilt durch Gesamtmarkt mal 100.",mood:"thinking",hintMood:"hint"},fields:[{label:"Marktanteil K wertmässig (38 ÷ 287 × 100)",unit:"%",correct:13.2,tol:0.3},{label:"Marktanteil K mengenmässig (36 ÷ 410 × 100)",unit:"%",correct:8.8,tol:0.3},{label:"Durchschnittspreis K pro Liter (38 ÷ 36)",unit:"CHF",correct:1.06,tol:0.03},{label:"Wachstum Exotische 2013→2017",unit:"%",correct:212.5,tol:5}],refData:{headers:["Kennzahl","2013","2015","2017"],rows:[["Absatz Erfrisch. (Mio. l)","410","430","410"],["Umsatz Erfrisch. (Mio. CHF)","287","301","287"],["Absatz Marke K (Mio. l)","30","34","36"],["Umsatz Marke K (Mio. CHF)","31","36","38"],["Absatz Exotische (Mio. l)","8","17","25"]]}},
+  {a:1,id:"a1_bcg",type:"drag_bcg",title:"1.2 Portfolio-Analyse (BCG-Matrix)",pts:"8P",marki:{intro:"Ordne die 3 Aromen per Drag-and-Drop in die BCG-Matrix ein!",hint:"Apple sinkt seit Jahren. Orange stagniert. Lemon wächst stark.",mood:"thinking",hintMood:"hint"},products:[{id:"apple",name:"K Apple",info:"14 Mio. l · ↓ sinkend",correct:"cashcow"},{id:"orange",name:"K Orange",info:"10 Mio. l · → stagnierend",correct:"poordog"},{id:"lemon",name:"K Lemon",info:"12 Mio. l · ↑ wachsend",correct:"questionmark"}],explanation:"Apple = Cash Cow, Orange = Poor Dog, Lemon = Question Mark. Empfehlung: Lemon fördern, Apple melken, Orange kritisch prüfen."},
+  {a:1,id:"a1_brief",type:"freetext",title:"1.3 Marktforschungsbriefing",pts:"8P",marki:{intro:"Erstelle ein Briefing für den Konsumententest. Budget CHF 30'000, 3 Monate.",mood:"serious"},prompt:"Erstelle ein Marktforschungsbriefing mit: Ausgangslage, Zielsetzung, Methodik, Zielgruppe, Zeitplan, Budget.",solution:"Ausgangslage: 4. Aroma gesucht, 3 Probeprodukte. Zielsetzung: Bestes Aroma identifizieren. Methodik: Blindtest an mehreren Standorten. Zielgruppe: 200-300 Personen, 18-40 J. Zeitplan: 3 Monate. Budget: CHF 30'000.",points:8},
+
+  {a:2,id:"a2_intro",type:"scenario",title:"Aufgabe 2 — Preiskalkulation",pts:"12P",marki:{text:"Lychee hat gewonnen! Jetzt die Zuschlagskalkulation Zeile für Zeile.",mood:"serious"},facts:[{l:"Einzelmaterial",v:"CHF 0.16/l"},{l:"Einzellöhne",v:"CHF 0.18/l"},{l:"MGK",v:"34% auf EM"},{l:"FGK",v:"140% auf EL"},{l:"VVGK",v:"20% auf HK"},{l:"Händlermarge",v:"66% auf SK"},{l:"Fixkosten",v:"CHF 2'200'000"}]},
+  {a:2,id:"a2_kalk",type:"multi_calc",title:"2.1 Zuschlagskalkulation",pts:"6P",marki:{intro:"Fülle die Kalkulation Zeile für Zeile aus!",hint:"MGK = 34% von 0.16. FGK = 140% von 0.18. HK = Material + Fertigung.",mood:"thinking",hintMood:"hint"},fields:[{label:"Einzelmaterial (EM)",unit:"CHF",correct:0.16,tol:0.001,prefilled:true},{label:"+ MGK (34% × EM)",unit:"CHF",correct:0.054,tol:0.002},{label:"= Materialkosten",unit:"CHF",correct:0.214,tol:0.003},{label:"Einzellöhne (EL)",unit:"CHF",correct:0.18,tol:0.001,prefilled:true},{label:"+ FGK (140% × EL)",unit:"CHF",correct:0.252,tol:0.003},{label:"= Fertigungskosten",unit:"CHF",correct:0.432,tol:0.003},{label:"= Herstellkosten (HK)",unit:"CHF",correct:0.646,tol:0.005},{label:"+ VVGK (20% × HK)",unit:"CHF",correct:0.129,tol:0.003},{label:"= Selbstkosten (SK)",unit:"CHF",correct:0.775,tol:0.005},{label:"= VP Konsument (SK × 1.66)",unit:"CHF",correct:1.29,tol:0.02}]},
+  {a:2,id:"a2_bep",type:"multi_calc",title:"2.3 Nutzschwellenanalyse",pts:"6P",marki:{intro:"Berechne den Break-even-Point!",hint:"DB = VP Handel minus HK. BEP = FK geteilt durch DB.",mood:"serious",hintMood:"hint"},fields:[{label:"VP an Handel (= SK)",unit:"CHF",correct:0.775,tol:0.005},{label:"– Variable Kosten (= HK)",unit:"CHF",correct:0.646,tol:0.005},{label:"= Deckungsbeitrag / Liter",unit:"CHF",correct:0.129,tol:0.005},{label:"BEP in Mio. Litern",unit:"Mio. l",correct:17.1,tol:0.5}],refData:{headers:["Vergleich","Menge 2017"],rows:[["K Lemon","12 Mio. l"],["K Apple","14 Mio. l"],["Total K","36 Mio. l"]]}},
+
+  {a:3,id:"a3_intro",type:"scenario",title:"Aufgabe 3 — Distribution",pts:"12P",marki:{text:"Distributionsaufbau für K Lychee. Erst Analyse, dann Budget!",mood:"neutral"},facts:[{l:"Num. Distribution",v:"40%"},{l:"Gew. Distribution",v:"80%"},{l:"Coop",v:"60% / 90%"},{l:"Denner",v:"12% / 12%"},{l:"Migros",v:"0%"},{l:"Listung Coop",v:"CHF 40'000"},{l:"Listung Volg/Spar",v:"CHF 15'000"}]},
+  {a:3,id:"a3_qual",type:"fill_table",title:"3.1 Distributionsanalyse",pts:"4P",marki:{intro:"Berechne die Qualitätskennziffer pro Kanal.",hint:"Gewichtete geteilt durch Numerische Distribution.",mood:"thinking",hintMood:"hint"},headers:["Kanal","Num.","Gew.","Qualitätskennz."],rows:[{cells:["Coop","60%","90%",""],editIdx:[3],correct:{3:"1.50"}},{cells:["Denner","12%","12%",""],editIdx:[3],correct:{3:"1.00"}},{cells:["Übrige","40%","60%",""],editIdx:[3],correct:{3:"1.50"}},{cells:["Total K","40%","80%",""],editIdx:[3],correct:{3:"2.00"}}],explanation:"Qualitätskennziffer 2.0 = überproportional in umsatzstarken Outlets. Denner hat grosses Potenzial!"},
+  {a:3,id:"a3_bud",type:"fill_table",title:"3.2 Distributionsbudget",pts:"8P",marki:{intro:"Stelle das Gesamtbudget zusammen!",hint:"Listungen + Logistik + Marketing + 10% Reserve.",mood:"serious",hintMood:"hint"},headers:["Position","CHF"],rows:[{cells:["Listung Coop",""],editIdx:[1],correct:{1:"40000"}},{cells:["Listung Denner",""],editIdx:[1],correct:{1:"40000"}},{cells:["Listung Volg",""],editIdx:[1],correct:{1:"15000"}},{cells:["Listung Spar",""],editIdx:[1],correct:{1:"15000"}},{cells:["Logistik",""],editIdx:[1],correct:{1:"70000"}},{cells:["Werbung",""],editIdx:[1],correct:{1:"50000"}},{cells:["Betreuung",""],editIdx:[1],correct:{1:"5000"}},{cells:["Schulung",""],editIdx:[1],correct:{1:"5000"}},{cells:["Zwischentotal",""],editIdx:[1],correct:{1:"240000"}},{cells:["+ Reserve 10%",""],editIdx:[1],correct:{1:"24000"}},{cells:["TOTAL",""],editIdx:[1],correct:{1:"264000"},highlight:true}],explanation:"Gesamtbudget CHF 264'000."},
+
+  {a:4,id:"a4_intro",type:"scenario",title:"Aufgabe 4 — Verkaufsförderung",pts:"12P",marki:{text:"VKF-Aktionen vergleichen und Konsumenten-Promotion planen!",mood:"neutral"},facts:[{l:"Aktion 2015",v:"−20% → ×4.1"},{l:"Aktion 2016",v:"−37% → ×7.8"},{l:"Nach 2016",v:"Einbruch"},{l:"Budget",v:"CHF 100'000"}]},
+  {a:4,id:"a4_calc",type:"multi_calc",title:"4.1 Aktionen vergleichen",pts:"4P",marki:{intro:"Berechne Aktionsumsatz und Folgeabsatz für beide Jahre.",hint:"Juli 2015: 1.23 × 0.90. Juli 2016: 2.33 × 0.70.",mood:"thinking",hintMood:"hint"},fields:[{label:"Aktionsumsatz Juli 2015",unit:"Mio.CHF",correct:1.11,tol:0.02},{label:"Aktionsumsatz Juli 2016",unit:"Mio.CHF",correct:1.63,tol:0.02},{label:"Ø Absatz Aug+Sep 2015",unit:"Mio.l",correct:0.33,tol:0.02},{label:"Ø Absatz Aug+Sep 2016",unit:"Mio.l",correct:0.175,tol:0.02}],refData:{headers:["","2015 Menge","2015 VP","2016 Menge","2016 VP"],rows:[["Juni","0.38","1.12","0.40","1.12"],["Juli ★","1.23","0.90","2.33","0.70"],["Aug","0.38","1.12","0.17","1.12"],["Sep","0.28","1.12","0.18","1.12"]]}},
+  {a:4,id:"a4_plan",type:"freetext",title:"4.3 Konsumenten-VKF",pts:"8P",marki:{intro:"Plane VKF für die Zielgruppe mit CHF 100'000 Budget!",mood:"happy"},prompt:"Erstelle einen VKF-Plan mit Massnahmen, Zielgruppen-Fit und Kosten.",solution:"Sampling an Sport-Events CHF 50-60k. Influencer/Social Media CHF 25-30k. Wettbewerbe CHF 10-15k.",points:8},
+
+  {a:5,id:"a5_intro",type:"scenario",title:"Aufgabe 5 — Launch-Bewertung",pts:"12P",marki:{text:"K Lychee wurde Mai 2018 lanciert. 20 Monate Daten – bewerten!",mood:"serious"},facts:[{l:"K Lychee 2019",v:"4 Mio. l / CHF 5 Mio."},{l:"K Apple",v:"14→13 Mio. l"},{l:"K Orange",v:"10→9 Mio. l"},{l:"Total K 2019",v:"38 Mio. l"},{l:"Distribution",v:"40% / 60%"}]},
+  {a:5,id:"a5_bew",type:"freetext",title:"5.1 Launch-Bewertung",pts:"6P",marki:{intro:"Analysiere die Einführung: Absatz, Kannibalisierung, BEP, Distribution.",mood:"thinking"},prompt:"Bewerte die Markteinführung von K Lychee.",solution:"Teilerfolg: 4 Mio.l, aber netto nur +2 Mio.l wegen Kannibalisierung. BEP 17 Mio.l weit entfernt. Distribution stagniert.",points:6},
+  {a:5,id:"a5_mass",type:"freetext",title:"5.2 Massnahmenplan",pts:"6P",marki:{intro:"Konkrete Schritte zur Optimierung!",mood:"serious"},prompt:"Erstelle einen priorisierten Massnahmenplan.",solution:"1. Distribution ausbauen (Denner). 2. Out-of-Stock lösen. 3. K Apple revitalisieren. 4. Moderate VKF. 5. K Orange prüfen.",points:6},
+
+  {a:0,id:"summary",type:"summary",title:"Gesamtauswertung",marki:{text:"Geschafft! Alle 5 Aufgaben bearbeitet. Das war eine echte Prüfungssimulation!",mood:"excited"}},
+];
+
+function App(){
+  const[step,setStep]=useState(0);const[answers,setAnswers]=useState({});const[phase,setPhase]=useState("active");
+  const[showHint,setSH]=useState(false);const[bt,setBT]=useState("");const[bty,setBTy]=useState("info");const[mood,setMood]=useState("neutral");
+  const[autoSpeak,setAS]=useState(true);const[noteOpen,setNO]=useState(false);const[timerR,setTR]=useState(false);
+  const[cv,setCV]=useState({});const[tv,setTV]=useState({});const[ft,setFT]=useState("");const[al,setAL]=useState(false);const[af,setAF]=useState("");
+  const[bcg,setBcg]=useState({star:null,questionmark:null,cashcow:null,poordog:null});const[di,setDI]=useState(null);
+
+  const tts=useTTS();const s=STEPS[step];const ac=AClr[s.a]||C.accent;
+
+  const say=(t,ty="info",m="neutral")=>{tts.stop();setBT(t);setBTy(ty);setMood(m);if(autoSpeak)setTimeout(()=>tts.speak(t),300)};
+
+  useEffect(()=>{
+    setPhase("active");setSH(false);setAF("");setCV({});setTV({});setFT("");
+    if(!timerR&&step>0)setTR(true);
+    if(s.type==="scenario"||s.type==="summary")say(s.marki.text,s.type==="scenario"?"scenario":"success",s.marki.mood);
+    else say(s.marki.intro,"info",s.marki.mood);
+    if(s.type==="multi_calc"&&s.fields){const pf={};s.fields.forEach((f,i)=>{if(f.prefilled)pf[i]=String(f.correct)});setCV(pf)}
+    if(s.type==="drag_bcg")setBcg({star:null,questionmark:null,cashcow:null,poordog:null});
+  },[step]);
+
+  const handleHint=()=>{if(!s.marki?.hint)return;tts.stop();setSH(true);say(s.marki.hint,"hint",s.marki.hintMood||"hint")};
+
+  const checkCalc=()=>{setPhase("answered");let c=0;s.fields.forEach((f,i)=>{const v=parseFloat((cv[i]||"").replace(",",".").replace(/['\s]/g,""));if(!isNaN(v)&&Math.abs(v-f.correct)<=f.tol)c++});const p=Math.round(c/s.fields.length*100);setAnswers(a=>({...a,[s.id]:{score:c,total:s.fields.length,pct:p}}));say(p>=80?"Super! "+c+" von "+s.fields.length+" korrekt!":c+" von "+s.fields.length+" richtig.",p>=80?"success":"hint",p>=80?"excited":"thinking")};
+
+  const checkTable=()=>{setPhase("answered");let c=0,t=0;s.rows.forEach((r,ri)=>{r.editIdx.forEach(ci=>{t++;const v=(tv[ri+"_"+ci]||"").replace(",",".").replace(/['\s]/g,"");const ncv=parseFloat(r.correct[ci]);if(Math.abs(parseFloat(v)-ncv)<=ncv*0.05+0.01)c++})});setAnswers(a=>({...a,[s.id]:{score:c,total:t,pct:Math.round(c/t*100)}}));say(s.explanation,c===t?"success":"hint",c===t?"excited":"thinking")};
+
+  const checkBCG=()=>{setPhase("answered");let c=0;s.products.forEach(p=>{if(bcg[p.correct]===p.id)c++});setAnswers(a=>({...a,[s.id]:{score:c,total:s.products.length,pct:Math.round(c/s.products.length*100)}}));say(s.explanation,c===s.products.length?"success":"hint",c===s.products.length?"excited":"thinking")};
+
+  const submitFT=async()=>{if(!ft.trim())return;setAL(true);say("Ich analysiere deine Antwort...","ai","thinking");const fb=await getAIFeedback(s,ft);setAF(fb);setPhase("answered");setAL(false);setAnswers(a=>({...a,[s.id]:{freetext:true}}));say(fb,"ai","happy")};
+
+  const handleDrop=z=>{if(!di||phase==="answered")return;const ns={...bcg};Object.keys(ns).forEach(k=>{if(ns[k]===di)ns[k]=null});ns[z]=di;setBcg(ns);setDI(null)};
+  const gp=id=>s.products?.find(p=>p.id===id);
+
+  return React.createElement("div",{style:{minHeight:"100vh"}},
+    React.createElement(Notepad,{open:noteOpen,onClose:()=>setNO(false)}),
+
+    // HEADER
+    React.createElement("div",{style:{background:GRAD.header,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}},
+      React.createElement("div",null,
+        React.createElement("h1",{style:{fontFamily:"'Playfair Display',serif",fontSize:16,fontWeight:800,color:"#fff",margin:0}},"Thirsty AG"),
+        React.createElement("span",{style:{fontSize:9,color:"rgba(255,255,255,0.6)",fontWeight:500,letterSpacing:1,textTransform:"uppercase"}},"Geleitete Fallstudie · Eidg. Fachausweis")),
+      React.createElement("div",{style:{display:"flex",gap:6,alignItems:"center",flexWrap:"wrap"}},
+        React.createElement(Timer,{running:timerR}),
+        React.createElement("button",{onClick:()=>setNO(!noteOpen),style:{background:noteOpen?"rgba(255,255,255,0.2)":"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,padding:"4px 10px",color:"#fff",cursor:"pointer",fontSize:11,fontWeight:600}},"📝 Notiz"),
+        React.createElement("div",{onClick:()=>{setAS(!autoSpeak);if(autoSpeak)tts.stop()},style:{display:"flex",alignItems:"center",gap:4,background:"rgba(255,255,255,0.1)",border:"1px solid rgba(255,255,255,0.2)",borderRadius:8,padding:"4px 8px",cursor:"pointer"}},
+          React.createElement("span",{style:{fontSize:11,color:"#fff"}},autoSpeak?"🔊":"🔇")))),
+
+    // NAV
+    React.createElement("div",{style:{display:"flex",background:C.bgCard,borderBottom:"1px solid "+C.border,boxShadow:C.shadow}},
+      [1,2,3,4,5].map(a=>React.createElement("button",{key:a,onClick:()=>setStep(STEPS.findIndex(x=>x.a===a)),style:{flex:1,padding:"8px 4px",background:s.a===a?AClr[a]+"08":"transparent",border:"none",borderBottom:s.a===a?"3px solid "+AClr[a]:"3px solid transparent",color:s.a===a?AClr[a]:C.textDim,fontFamily:"'DM Sans'",fontSize:10,fontWeight:s.a===a?700:500,cursor:"pointer"}},"A",a))),
+
+    // PROGRESS
+    React.createElement("div",{style:{height:4,background:C.bgWarm}},React.createElement("div",{style:{height:"100%",width:((step+1)/STEPS.length*100)+"%",background:GRAD.warm,borderRadius:"0 2px 2px 0",transition:"width 0.4s"}})),
+
+    // CONTENT
+    React.createElement("div",{style:{maxWidth:860,margin:"0 auto",padding:16,display:"flex",flexDirection:"column",gap:12}},
+
+      // Title
+      React.createElement("div",{style:{display:"flex",alignItems:"center",gap:8}},
+        React.createElement("span",{style:{fontSize:12,fontWeight:700,color:ac}},s.title),
+        s.pts&&React.createElement("span",{style:{fontSize:10,fontWeight:600,color:C.textDim,background:C.bgLight,padding:"2px 8px",borderRadius:6}},s.pts)),
+
+      // MARKI + Bubble
+      React.createElement("div",{style:{display:"flex",gap:10,alignItems:"flex-end"}},
+        React.createElement(Marki,{mood,size:75,speaking:tts.isSpeaking&&!tts.isPaused}),
+        React.createElement(Bubble,{text:bt,type:bty,tts})),
+
+      // SCENARIO
+      s.type==="scenario"&&s.facts&&React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(155px,1fr))",gap:8,animation:"slideUp 0.3s"}},
+        s.facts.map((f,i)=>React.createElement("div",{key:i,style:{background:C.bgCard,border:"1px solid "+C.border,borderRadius:12,padding:"10px 12px",boxShadow:C.shadow}},
+          React.createElement("div",{style:{fontSize:9,color:C.textDim,fontWeight:600,textTransform:"uppercase",letterSpacing:0.5,marginBottom:3}},f.l),
+          React.createElement("div",{style:{fontSize:13,fontWeight:700,color:C.accent}},f.v)))),
+
+      // MULTI CALC
+      s.type==="multi_calc"&&React.createElement("div",{style:{animation:"slideUp 0.3s"}},
+        s.refData&&React.createElement("div",{style:{overflowX:"auto",marginBottom:8,background:C.bgCard,border:"1px solid "+C.border,borderRadius:12,boxShadow:C.shadow}},
+          React.createElement("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:11}},
+            React.createElement("thead",null,React.createElement("tr",null,s.refData.headers.map((h,i)=>React.createElement("th",{key:i,style:{padding:"8px 10px",textAlign:"left",borderBottom:"2px solid "+C.accent+"22",color:C.accent,fontSize:9,fontWeight:700,textTransform:"uppercase"}},h)))),
+            React.createElement("tbody",null,s.refData.rows.map((r,i)=>React.createElement("tr",{key:i,style:{borderBottom:"1px solid "+C.borderLight}},r.map((c,j)=>React.createElement("td",{key:j,style:{padding:"6px 10px",color:C.textMid,fontFamily:"'DM Mono',monospace",fontSize:11}},c))))))),
+        React.createElement("div",{style:{background:C.bgCard,border:"1px solid "+C.border,borderRadius:12,padding:14,boxShadow:C.shadow}},
+          s.fields.map((f,i)=>{
+            const val=cv[i]||"";const nv=parseFloat((val||"").replace(",",".").replace(/['\s]/g,""));const ok=!isNaN(nv)&&Math.abs(nv-f.correct)<=f.tol;const sep=f.label.startsWith("=");
+            return React.createElement("div",{key:i,style:{display:"flex",alignItems:"center",gap:10,padding:sep?"6px 0":"3px 0",borderTop:sep?"1px solid "+C.border:"none"}},
+              React.createElement("span",{style:{flex:1,fontSize:12,color:sep?C.accent:C.text,fontWeight:sep?700:400}},f.label),
+              React.createElement("div",{style:{display:"flex",alignItems:"center",gap:4}},
+                React.createElement("span",{style:{fontFamily:"'DM Mono'",fontSize:10,color:C.textDim}},f.unit),
+                React.createElement("input",{type:"text",value:val,onChange:e=>setCV(v=>({...v,[i]:e.target.value})),disabled:phase==="answered"||f.prefilled,style:{width:90,padding:"6px 8px",background:f.prefilled?C.bgLight:C.bgCard,border:"1.5px solid "+(phase==="answered"?(ok?C.success:C.danger)+"66":C.border),borderRadius:8,color:C.text,fontSize:13,fontFamily:"'DM Mono'",textAlign:"right"}})),
+              phase==="answered"&&!ok&&React.createElement("span",{style:{fontFamily:"'DM Mono'",fontSize:10,color:C.success,fontWeight:600}},f.correct),
+              phase==="answered"&&ok&&React.createElement("span",{style:{fontSize:12}},"✓"))}))),
+
+      // BCG
+      s.type==="drag_bcg"&&React.createElement("div",{style:{animation:"slideUp 0.3s"}},
+        React.createElement("div",{style:{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}},
+          s.products.filter(p=>!Object.values(bcg).includes(p.id)).map(p=>React.createElement("div",{key:p.id,className:"bci",draggable:true,onDragStart:()=>setDI(p.id),onClick:()=>setDI(di===p.id?null:p.id),style:{borderColor:di===p.id?C.accent:C.border,background:di===p.id?"#FBF5EE":C.bgLight}},
+            React.createElement("div",{style:{fontWeight:700,color:C.accent,fontSize:12}},p.name),
+            React.createElement("div",{style:{fontSize:10,color:C.textDim}},p.info)))),
+        React.createElement("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},
+          [{key:"questionmark",label:"❓ Question Marks",sub:"↑ Wachstum · ↓ MA",color:C.orange},{key:"star",label:"⭐ Stars",sub:"↑ Wachstum · ↑ MA",color:C.accentGold},{key:"poordog",label:"🐕 Poor Dogs",sub:"↓ Wachstum · ↓ MA",color:C.textDim},{key:"cashcow",label:"🐄 Cash Cows",sub:"↓ Wachstum · ↑ MA",color:C.success}].map(z=>{
+            const prod=gp(bcg[z.key]);const ok=phase==="answered"&&prod&&prod.correct===z.key;const bad=phase==="answered"&&prod&&prod.correct!==z.key;
+            return React.createElement("div",{key:z.key,className:"bcz",onDragOver:e=>e.preventDefault(),onDrop:()=>handleDrop(z.key),onClick:()=>{if(di&&phase!=="answered")handleDrop(z.key)},style:{borderColor:ok?C.success:bad?C.danger:C.border,background:ok?C.successLight:bad?C.dangerLight:C.bgCard}},
+              React.createElement("div",{style:{fontSize:11,fontWeight:700,color:z.color,marginBottom:2}},z.label),
+              React.createElement("div",{style:{fontSize:9,color:C.textDim,marginBottom:6}},z.sub),
+              prod&&React.createElement("div",{className:"bci",onClick:e=>{if(phase!=="answered"){e.stopPropagation();setBcg(st=>({...st,[z.key]:null}))}},style:{cursor:phase==="answered"?"default":"pointer",borderColor:ok?C.success:bad?C.danger:C.accentLight}},
+                React.createElement("span",{style:{fontWeight:700,color:ok?C.success:bad?C.danger:C.accent,fontSize:12}},prod.name)),
+              bad&&React.createElement("div",{style:{fontSize:9,color:C.success,marginTop:3,fontWeight:600}},"→ ",s.products.find(p=>p.correct===z.key)?.name))}))),
+
+      // FILL TABLE
+      s.type==="fill_table"&&React.createElement("div",{style:{overflowX:"auto",background:C.bgCard,border:"1px solid "+C.border,borderRadius:12,boxShadow:C.shadow,animation:"slideUp 0.3s"}},
+        React.createElement("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:12}},
+          React.createElement("thead",null,React.createElement("tr",null,s.headers.map((h,i)=>React.createElement("th",{key:i,style:{padding:"8px 10px",textAlign:"left",borderBottom:"2px solid "+C.accent+"22",color:C.accent,fontSize:10,fontWeight:700,textTransform:"uppercase"}},h)))),
+          React.createElement("tbody",null,s.rows.map((r,ri)=>React.createElement("tr",{key:ri,style:{borderBottom:"1px solid "+C.borderLight,background:r.highlight?C.accent+"08":"transparent"}},
+            r.cells.map((c,ci)=>{
+              const isE=r.editIdx.includes(ci);const key=ri+"_"+ci;const val=tv[key]||"";const ncv=parseFloat(r.correct?.[ci]);const nv=parseFloat((val||"").replace(",",".").replace(/['\s]/g,""));
+              const ok=phase==="answered"&&isE&&!isNaN(nv)&&Math.abs(nv-ncv)<=ncv*0.05+0.01;const bad=phase==="answered"&&isE&&!ok;
+              return React.createElement("td",{key:ci,style:{padding:"6px 10px"}},
+                isE?React.createElement("div",{style:{display:"flex",alignItems:"center",gap:4}},
+                  React.createElement("input",{type:"text",value:val,onChange:e=>setTV(v=>({...v,[key]:e.target.value})),disabled:phase==="answered",style:{width:90,padding:"5px 8px",background:C.bgCard,border:"1.5px solid "+(ok?C.success+"66":bad?C.danger+"66":C.border),borderRadius:7,color:C.text,fontSize:12,fontFamily:"'DM Mono'",textAlign:"right"}}),
+                  bad&&React.createElement("span",{style:{fontSize:10,color:C.success,fontWeight:600}},r.correct[ci]),
+                  ok&&React.createElement("span",{style:{fontSize:11}},"✓")):
+                React.createElement("span",{style:{color:r.highlight?C.accent:C.textMid,fontWeight:r.highlight?700:400}},c))})))))),
+
+      // FREETEXT
+      s.type==="freetext"&&React.createElement("div",{style:{background:C.bgCard,border:"1px solid "+C.border,borderRadius:14,padding:14,boxShadow:C.shadow,animation:"slideUp 0.3s"}},
+        React.createElement("h3",{style:{fontSize:13,fontWeight:700,margin:"0 0 8px"}},s.prompt),
+        React.createElement("textarea",{value:ft,onChange:e=>setFT(e.target.value),disabled:phase==="answered",placeholder:"Deine Antwort hier...",style:{width:"100%",minHeight:120,padding:12,background:"#FFFDF8",border:"1.5px solid "+C.border,borderRadius:10,color:C.text,fontSize:12.5,fontFamily:"'DM Sans'",resize:"vertical",lineHeight:1.7,boxSizing:"border-box"}}),
+        phase==="answered"&&af&&React.createElement("div",{style:{marginTop:10,padding:12,background:"#F3EEF8",border:"1px solid "+C.purple+"33",borderRadius:10,borderLeft:"4px solid "+C.purple}},
+          React.createElement("div",{style:{fontSize:9,fontWeight:700,color:C.purple,letterSpacing:1,textTransform:"uppercase",marginBottom:4}},"🤖 AI-Feedback"),
+          React.createElement("p",{style:{fontSize:12,lineHeight:1.6,margin:0}},af)),
+        phase==="answered"&&React.createElement("details",{style:{marginTop:8}},
+          React.createElement("summary",{style:{fontSize:11,color:C.accent,cursor:"pointer",fontWeight:600}},"📋 Musterlösung"),
+          React.createElement("p",{style:{fontSize:12,lineHeight:1.6,color:C.textMid,marginTop:6,padding:10,background:C.bgLight,borderRadius:8}},s.solution))),
+
+      // SUMMARY
+      s.type==="summary"&&React.createElement("div",{style:{background:C.bgCard,border:"1px solid "+C.border,borderRadius:14,padding:16,boxShadow:C.shadowLg,animation:"slideUp 0.3s"}},
+        [1,2,3,4,5].map(a=>{
+          const aS=STEPS.filter(x=>x.a===a&&x.type!=="scenario");if(!aS.length)return null;
+          return React.createElement("div",{key:a,style:{marginBottom:12}},
+            React.createElement("div",{style:{fontSize:10,fontWeight:700,color:AClr[a],marginBottom:4}},"Aufgabe ",a,": ",AN[a]),
+            aS.map(x=>{const ans=answers[x.id];return React.createElement("div",{key:x.id,style:{display:"flex",alignItems:"center",gap:8,padding:"6px 10px",background:C.bgLight,borderRadius:8,border:"1px solid "+C.borderLight,marginBottom:4}},
+              React.createElement("span",{style:{fontSize:13}},ans?(ans.freetext?"📝":ans.pct>=80?"✅":ans.pct>=50?"🟡":"❌"):"⬜"),
+              React.createElement("span",{style:{flex:1,fontSize:11,fontWeight:500}},x.title),
+              ans&&!ans.freetext&&React.createElement("span",{style:{fontFamily:"'DM Mono'",fontSize:10,fontWeight:700,color:ans.pct>=80?C.success:ans.pct>=50?C.orange:C.danger}},ans.pct,"%"),
+              ans?.freetext&&React.createElement("span",{style:{fontSize:9,fontWeight:700,color:C.purple}},"AI ✓"))}))})),
+
+      // ACTIONS
+      React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"space-between",flexWrap:"wrap",alignItems:"center"}},
+        s.marki?.hint&&!showHint&&phase==="active"&&React.createElement(Btn,{variant:"outline",onClick:handleHint},"💡 Hinweis"),
+        phase==="active"&&s.type==="multi_calc"&&React.createElement(Btn,{onClick:checkCalc,style:{marginLeft:"auto"}},"Prüfen ✓"),
+        phase==="active"&&s.type==="fill_table"&&React.createElement(Btn,{onClick:checkTable,style:{marginLeft:"auto"}},"Prüfen ✓"),
+        phase==="active"&&s.type==="drag_bcg"&&Object.values(bcg).filter(Boolean).length===s.products.length&&React.createElement(Btn,{onClick:checkBCG,style:{marginLeft:"auto"}},"Prüfen ✓"),
+        phase==="active"&&s.type==="freetext"&&React.createElement(Btn,{variant:"ai",onClick:submitFT,disabled:al||!ft.trim(),style:{marginLeft:"auto"}},al?"⏳ MARKI denkt...":"🤖 AI-Bewertung"),
+        (phase==="answered"||s.type==="scenario")&&step<STEPS.length-1&&React.createElement(Btn,{onClick:()=>setStep(st=>st+1),style:{marginLeft:"auto",animation:"pulse 2s infinite"}},"Weiter →"),
+        s.type==="summary"&&React.createElement(Btn,{onClick:()=>{tts.stop();setStep(0);setAnswers({});setTR(false)},style:{margin:"0 auto"}},"🔄 Nochmal starten"))))
+}
+
+ReactDOM.render(React.createElement(App),document.getElementById("root"));
+</script>
+</body>
+</html>
