@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Physique Alchemy — Complete Brand Guide</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+<style>
+
+  :root{--action:#4A7FA3;--action-h:#3E6F90;--recovery:#6BA08C;--ink:#2F3640;--ink-s:#3D5166;--tx:#526A82;--tx-l:#7A93A9;--tx-m:#99ADBD;--tx-f:#B4C5D3;--cloud:#E2E8EE;--line:#EDF1F5;--off:#F4F6F8;--bg:#FBFCFD;--w:#fff;--wash:#E8F1F8;--fd:'Outfit',sans-serif;--fb:'DM Sans',sans-serif;--side-w:240px}
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{font-family:var(--fb);background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;line-height:1.6}
+
+  .side{position:fixed;top:0;left:0;bottom:0;width:var(--side-w);background:var(--w);border-right:1px solid var(--line);z-index:100;display:flex;flex-direction:column;overflow-y:auto}
+
+  .side-logo{padding:20px 24px;font-family:var(--fd);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line)}
+
+  .side-logo span{display:block;font-weight:300;font-size:10px;letter-spacing:.06em;color:var(--tx-m);margin-top:2px;text-transform:none}
+
+  .side-nav{padding:16px 0;flex:1}
+
+  .side-group{padding:0 24px;margin-bottom:4px}
+
+  .side-group-title{font-family:var(--fd);font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-m);padding:12px 0 6px}
+
+  .side-link{display:block;padding:7px 12px;font-size:12px;color:var(--tx);text-decoration:none;border-radius:6px;transition:all .15s;margin:1px 0}
+
+  .side-link:hover{background:var(--off);color:var(--ink)}
+
+  .side-link.active{background:rgba(74,127,163,.08);color:var(--action);font-weight:500}
+
+  .side-version{padding:16px 24px;border-top:1px solid var(--line);font-size:10px;color:var(--tx-f)}
+
+  .main{margin-left:var(--side-w);min-height:100vh}
+
+  .topbar{position:sticky;top:0;z-index:50;height:48px;background:rgba(251,252,253,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+
+  .topbar-title{font-family:var(--fd);font-size:12px;font-weight:500;color:var(--tx-l);letter-spacing:.04em}
+
+  .topbar-actions{display:flex;gap:8px}
+
+  .topbar-btn{font-family:var(--fd);font-size:10px;font-weight:500;letter-spacing:.04em;padding:6px 14px;border-radius:5px;border:1px solid var(--cloud);background:var(--w);color:var(--tx);cursor:pointer;transition:all .15s;text-decoration:none}
+
+  .topbar-btn:hover{border-color:var(--action);color:var(--action)}
+
+  .topbar-btn-p{background:var(--action);color:var(--w);border-color:var(--action)}
+
+  .topbar-btn-p:hover{background:var(--action-h)}
+
+  .sec{padding:64px 40px 48px;max-width:840px}
+
+  .sec-full{padding:64px 40px 48px}
+
+  .divider{height:1px;background:var(--line);margin:0 40px}
+
+  .sh{margin-bottom:40px}
+
+  .sh-num{font-family:var(--fd);font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--action);margin-bottom:10px}
+
+  .sh h2{font-family:var(--fd);font-size:clamp(24px,3vw,34px);font-weight:300;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+
+  .sh h2 strong{font-weight:700}
+
+  .sh-desc{font-size:15px;color:var(--tx);line-height:1.7;max-width:540px;margin-top:10px}
+
+  .sub{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--ink-s);margin:36px 0 12px}
+
+  .sub:first-child{margin-top:0}
+
+  .prose{font-size:14px;line-height:1.8;color:var(--tx);max-width:600px}
+
+  .prose p+p{margin-top:14px}
+
+  .prose strong{color:var(--ink-s);font-weight:600}
+
+  .pal-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+
+  .pal{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+
+  .pal-sw{height:100px;position:relative;cursor:pointer;display:flex;align-items:flex-end;padding:10px 14px}
+
+  .pal-sw:hover .pal-copy{opacity:1}
+
+  .pal-badge{font-family:var(--fd);font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:rgba(255,255,255,.2);color:#fff}
+
+  .pal-copy{position:absolute;top:8px;right:8px;font-size:9px;color:rgba(255,255,255,.7);background:rgba(0,0,0,.2);padding:2px 8px;border-radius:4px;opacity:0;transition:opacity .15s;pointer-events:none}
+
+  .pal-info{padding:12px 14px;background:var(--w)}
+
+  .pal-nm{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--ink)}
+
+  .pal-hex{font-size:11px;color:var(--tx-m);margin-top:1px;cursor:pointer;transition:color .15s}
+
+  .pal-hex:hover{color:var(--action)}
+
+  .pal-use{font-size:11px;color:var(--tx-l);margin-top:6px;line-height:1.5}
+
+  .neut-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0 24px}
+
+  .neut{border-radius:8px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .15s}
+
+  .neut:hover{transform:translateY(-2px)}
+
+  .neut .nsw{height:48px}
+
+  .neut .ninf{padding:8px 10px;background:var(--w)}
+
+  .neut .nnm{font-family:var(--fd);font-size:10px;font-weight:600;color:var(--ink-s)}
+
+  .neut .nhx{font-size:9px;color:var(--tx-m)}
+
+  .ratio{display:flex;border-radius:8px;overflow:hidden;height:32px;margin:20px 0;border:1px solid var(--line)}
+
+  .ratio div{display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:8px;font-weight:500;letter-spacing:.04em;color:#fff}
+
+  .a11y{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:20px 0}
+
+  .a11y-card{padding:14px 16px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;gap:12px}
+
+  .a11y-sample{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;font-weight:700}
+
+  .a11y-info .a11y-pair{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--ink-s)}
+
+  .a11y-info .a11y-ratio{font-size:10px;color:var(--tx-m)}
+
+  .a11y-pass{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;margin-left:6px}
+
+  .a11y-ok{background:rgba(107,160,140,.1);color:var(--recovery)}
+
+  .a11y-fail{background:rgba(196,80,60,.08);color:#C0503C}
+
+  .logo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+
+  .logo-card{border-radius:12px;padding:48px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;position:relative}
+
+  .logo-card .lc-tag{position:absolute;top:12px;left:14px;font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:.4;font-family:var(--fd)}
+
+  .logo-wm{font-family:var(--fd);font-size:22px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+
+  .logo-sub{font-family:var(--fd);font-size:9px;font-weight:300;letter-spacing:.4em;text-transform:uppercase;margin-top:6px}
+
+  .clear-space{margin:24px 0;padding:40px;background:var(--off);border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+
+  .cs-box{position:relative;padding:32px 40px;border:1.5px dashed var(--action);border-radius:4px}
+
+  .cs-label{position:absolute;font-family:var(--fd);font-size:9px;font-weight:500;color:var(--action);letter-spacing:.06em}
+
+  .cs-top{top:-18px;left:50%;transform:translateX(-50%)}
+
+  .cs-right{right:-30px;top:50%;transform:translateY(-50%) rotate(90deg)}
+
+  .cs-bottom{bottom:-18px;left:50%;transform:translateX(-50%)}
+
+  .cs-left{left:-24px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+
+  .dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+
+  .dd{border-radius:12px;padding:20px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+
+  .dd-label{font-family:var(--fd);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+
+  .dd-ok{background:var(--w);border:1px solid var(--line)}
+
+  .dd-ok .dd-label{color:var(--recovery)}
+
+  .dd-no{background:#FBF2F0;border:1px solid rgba(192,80,60,.1)}
+
+  .dd-no .dd-label{color:#C0503C}
+
+  .dd-desc{font-size:11px;color:var(--tx);line-height:1.5}
+
+  .dd-no .dd-desc{color:#A06050}
+
+  .dd-wm{font-family:var(--fd);font-size:18px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+
+  .type-box{margin:24px 0;padding:28px;background:var(--w);border:1px solid var(--line);border-radius:12px}
+
+  .tb-label{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-m);font-family:var(--fd);margin-bottom:6px}
+
+  .tb-row{padding:16px 0;border-bottom:1px solid var(--line)}
+
+  .tb-row:last-child{border:none;padding-bottom:0}
+
+  .tb-row:first-child{padding-top:0}
+
+  .tb-specs{display:flex;gap:12px;margin-top:4px}
+
+  .tb-specs span{font-size:9px;color:var(--tx-m);font-family:var(--fd);background:var(--off);padding:2px 6px;border-radius:3px}
+
+  .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+
+  .img-c{padding:24px 20px;border-radius:12px;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end}
+
+  .img-c h4{font-family:var(--fd);font-size:13px;font-weight:600;margin-bottom:3px}
+
+  .img-c p{font-size:11px;line-height:1.5}
+
+  .img-ok{background:var(--w);border:1px solid var(--line);color:var(--ink-s)}
+
+  .img-ok p{color:var(--tx)}
+
+  .img-no{background:#FBF2F0;border:1px solid rgba(192,80,60,.1);color:#A0553E}
+
+  .img-no p{color:#A06050}
+
+  .settings{margin:20px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+
+  .s-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}
+
+  .s-row:last-child{border:none}
+
+  .s-key{padding:10px 14px;font-family:var(--fd);font-size:11px;font-weight:600;color:var(--ink-s);background:var(--off)}
+
+  .s-val{padding:10px 14px;font-size:12px;color:var(--tx);line-height:1.55}
+
+  .motion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+
+  .mo{padding:20px;background:var(--w);border:1px solid var(--line);border-radius:10px;text-align:center}
+
+  .mo-demo{width:40px;height:40px;background:var(--action);border-radius:8px;margin:0 auto 12px;cursor:pointer}
+
+  .mo h4{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--ink-s);margin-bottom:2px}
+
+  .mo p{font-size:10px;color:var(--tx-m)}
+
+  .mo-demo.ease{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+
+  .mo-demo.spring{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+
+  .mo-demo.soft{transition:transform .6s cubic-bezier(.25,.1,.25,1)}
+
+  .mo:hover .mo-demo{transform:translateY(-8px)}
+
+  .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+
+  .soc{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+
+  .soc-preview{background:var(--off);display:flex;align-items:center;justify-content:center;position:relative}
+
+  .soc-frame{border:1px dashed var(--cloud);background:var(--w);display:flex;align-items:center;justify-content:center}
+
+  .soc-frame span{font-family:var(--fd);font-size:8px;color:var(--tx-m);letter-spacing:.06em}
+
+  .soc-info{padding:10px 12px}
+
+  .soc-name{font-family:var(--fd);font-size:11px;font-weight:600;color:var(--ink-s)}
+
+  .soc-size{font-size:10px;color:var(--tx-m)}
+
+  .icon-row{display:flex;gap:20px;margin:24px 0;flex-wrap:wrap}
+
+  .icon-item{width:48px;height:48px;border-radius:10px;background:var(--w);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+
+  .icon-item:hover{border-color:var(--action)}
+
+  .radius-row{display:flex;gap:14px;margin:20px 0;flex-wrap:wrap}
+
+  .rad{text-align:center}
+
+  .rad-box{width:56px;height:56px;background:var(--wash);border:1px solid var(--cloud);margin-bottom:4px}
+
+  .rad-t{font-size:9px;color:var(--tx-m)}
+
+  .icon-logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}
+
+  .il-card{background:var(--w);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:all .3s;cursor:pointer}
+
+  .il-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.05);transform:translateY(-2px)}
+
+  .il-prev{min-height:240px;display:flex;align-items:center;justify-content:center;padding:28px;position:relative;transition:background .3s}
+
+  .il-prev-dark{background:var(--ink)}
+
+  .il-toggle{position:absolute;top:8px;right:8px;display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+
+  .il-prev-dark .il-toggle{border-color:rgba(255,255,255,.1)}
+
+  .ilt{padding:3px 8px;font-family:var(--fd);font-size:7px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--tx-m);transition:all .15s}
+
+  .ilt.on{background:var(--off);color:var(--ink)}
+
+  .il-prev-dark .ilt{color:rgba(255,255,255,.25)}
+
+  .il-prev-dark .ilt.on{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+
+  .il-info{padding:14px 16px;border-top:1px solid var(--line)}
+
+  .il-nm{font-family:var(--fd);font-size:12px;font-weight:600;color:var(--ink)}
+
+  .il-desc{font-size:10px;color:var(--tx-l);line-height:1.5;margin-top:2px}
+
+  .sty-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
+
+  .sty-card{border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:box-shadow .3s,transform .3s}
+
+  .sty-card:hover{box-shadow:0 10px 32px rgba(0,0,0,.06);transform:translateY(-3px)}
+
+  .sty-card.active{border-color:var(--action);box-shadow:0 0 0 2px rgba(74,127,163,.15)}
+
+  .sty-pv{min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px;position:relative;overflow:hidden}
+
+  .sty-pv .sty-tag{font-family:var(--fd);font-size:7px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--action);margin-bottom:8px;position:relative;z-index:2}
+
+  .sty-pv h3{font-family:var(--fd);font-size:22px;font-weight:200;line-height:1.08;letter-spacing:-.03em;color:var(--ink);margin-bottom:6px;position:relative;z-index:2}
+
+  .sty-pv h3 strong{font-weight:700}
+
+  .sty-pv .sty-sub{font-size:10px;color:var(--tx);line-height:1.5;position:relative;z-index:2;margin-bottom:10px}
+
+  .sty-pv .sty-btn{font-family:var(--fd);font-size:7px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:4px;width:fit-content;background:var(--action);color:#fff;position:relative;z-index:2}
+
+  .sty-bot{padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+
+  .sty-nm{font-family:var(--fd);font-size:12px;font-weight:600;color:var(--ink)}
+
+  .sty-desc{font-size:9px;color:var(--tx-m);max-width:160px;line-height:1.3}
+
+  .sty-detail{margin:24px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:none}
+
+  .sty-detail.open{display:block}
+
+  .sty-detail-header{padding:16px 20px;background:var(--off);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+
+  .sty-detail-name{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--ink)}
+
+  .sty-detail-close{width:28px;height:28px;border-radius:50%;background:var(--w);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--tx-m);transition:all .15s}
+
+  .sty-detail-close:hover{border-color:var(--action);color:var(--action)}
+
+  .sty-detail-body{display:grid;grid-template-columns:1.3fr 1fr;min-height:400px}
+
+  .sty-detail-preview{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 36px}
+
+  .sty-detail-preview .sdp-tag{font-family:var(--fd);font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--action);margin-bottom:14px;position:relative;z-index:2}
+
+  .sty-detail-preview h3{font-family:var(--fd);font-size:38px;font-weight:200;line-height:1.06;letter-spacing:-.03em;color:var(--ink);margin-bottom:10px;position:relative;z-index:2}
+
+  .sty-detail-preview h3 strong{font-weight:700}
+
+  .sty-detail-preview .sdp-body{font-size:14px;color:var(--tx);line-height:1.7;max-width:320px;margin-bottom:20px;position:relative;z-index:2}
+
+  .sty-detail-preview .sdp-btn{font-family:var(--fd);font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:10px 22px;border-radius:6px;width:fit-content;background:var(--action);color:#fff;position:relative;z-index:2;display:inline-flex;align-items:center;gap:5px}
+
+  .sty-detail-info{padding:32px 28px;background:var(--off);display:flex;flex-direction:column;gap:24px;border-left:1px solid var(--line)}
+
+  .sdi-label{font-family:var(--fd);font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-m);margin-bottom:6px}
+
+  .sdi-desc{font-size:12px;color:var(--tx);line-height:1.6}
+
+  .sdi-when{font-size:11px;color:var(--tx-l);line-height:1.6;padding:10px 14px;background:var(--w);border-radius:8px;border:1px solid var(--line)}
+
+  .sc-grid{display:grid;grid-template-columns:280px 1fr;gap:32px;margin:24px 0;align-items:start}
+
+  .sc-phone{background:var(--w);padding:12px;border-radius:20px;border:1px solid var(--cloud)}
+
+  .sc-head{display:flex;align-items:center;gap:6px;padding:6px 4px;margin-bottom:8px}
+
+  .sc-av{width:24px;height:24px;border-radius:50%;background:var(--wash);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:8px;font-weight:600;color:var(--action)}
+
+  .sc-nm{font-family:var(--fd);font-size:10px;font-weight:600;color:var(--ink)}
+
+  .sc-hndl{font-size:8px;color:var(--tx-m)}
+
+  .sc-img{width:100%;aspect-ratio:4/5;border-radius:10px;overflow:hidden;position:relative;margin-bottom:8px}
+
+  .sc-cap{font-size:10px;color:var(--tx);line-height:1.55;padding:0 4px}
+
+  .sc-cap strong{color:var(--ink-s)}
+
+  .ann{display:flex;gap:6px;align-items:flex-start;margin:6px 0;padding:10px 12px;background:var(--off);border-radius:6px;border-left:2px solid var(--action)}
+
+  .ann-n{font-family:var(--fd);font-size:9px;font-weight:700;color:var(--action);min-width:14px;margin-top:1px}
+
+  .ann-t{font-size:11px;color:var(--tx);line-height:1.5}
+
+  .ann-t strong{color:var(--ink-s);font-weight:600}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;font-family:var(--fd);font-size:12px;font-weight:500;padding:10px 20px;border-radius:8px;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
+  .dl-row{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}
+
+  .dl-btn{font-family:var(--fd);font-size:10px;font-weight:500;letter-spacing:.04em;padding:8px 16px;border-radius:6px;border:1px solid var(--cloud);background:var(--w);color:var(--tx);cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+
+  .dl-btn:hover{border-color:var(--action);color:var(--action)}
+
+  .dl-btn svg{width:14px;height:14px}
+
+  @media(max-width:900px){
+
+    .side{display:none}
+
+    .main{margin-left:0}
+
+    .pal-row,.logo-grid,.dd-grid,.img-grid,.a11y,.sc-grid,.sty-grid,.sty-detail-body,.icon-logo-grid{grid-template-columns:1fr}
+
+    .neut-row{grid-template-columns:repeat(2,1fr)}
+
+    .motion-grid,.social-grid{grid-template-columns:1fr}
+
+    .s-row{grid-template-columns:1fr}
+
+    .sec,.sec-full{padding:40px 20px 32px}
+
+    .divider{margin:0 20px}
+
+    .topbar{padding:0 20px}
+
+  }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<aside class="side">
+
+  <div class="side-logo">Physique Alchemy<span>Brand Guide v1.0</span></div>
+
+  <nav class="side-nav">
+
+    <div class="side-group">
+
+      <div class="side-group-title">Grundlagen</div>
+
+      <a href="#colors" class="side-link active">Farbpalette</a>
+
+      <a href="#logo" class="side-link">Logo</a>
+
+      <a href="#typography" class="side-link">Typografie</a>
+
+    </div>
+
+    <div class="side-group">
+
+      <div class="side-group-title">Anwendung</div>
+
+      <a href="#styles" class="side-link">Styles</a>
+
+      <a href="#imagery" class="side-link">Bildsprache</a>
+
+      <a href="#icons" class="side-link">Icons &amp; Elemente</a>
+
+      <a href="#motion" class="side-link">Motion</a>
+
+    </div>
+
+    <div class="side-group">
+
+      <div class="side-group-title">Touchpoints</div>
+
+      <a href="#social" class="side-link">Social Formate</a>
+
+      <a href="#post-single" class="side-link">Single Post</a>
+
+      <a href="#post-carousel" class="side-link">Carousel / Slides</a>
+
+      <a href="#post-story" class="side-link">Story / Reel</a>
+
+      <a href="#post-success" class="side-link">Success Story</a>
+
+      <a href="#post-storytelling" class="side-link">Storytelling</a>
+
+    </div>
+
+    <div class="side-group">
+
+      <div class="side-group-title">Marke</div>
+
+      <a href="#cobranding" class="side-link">Co-Branding</a>
+
+    </div>
+
+  </nav>
+
+  <div class="side-version">Version 1.0 · März 2026</div>
+
+</aside>
+
+<!-- Main -->
+
+<div class="main">
+
+<div class="topbar">
+
+  <div class="topbar-title">Physique Alchemy — Visual Identity</div>
+
+  <div class="topbar-actions">
+
+    <a href="#" class="topbar-btn" onclick="event.preventDefault()">↓ Assets</a>
+
+  </div>
+
+</div>
+
+<section class="sec" id="colors">
+
+  <div class="sh">
+
+    <div class="sh-num">01 · Farben</div>
+
+    <h2>Performance vs. <strong>Recovery</strong></h2>
+
+    <p class="sh-desc">Zwei Funktionsfarben. Zwei Deep-Tech Neutrals. Die Palette trennt zwischen Antrieb und Vertrauen.</p>
+
+  </div>
+
+  <div class="sub">Funktionsfarben</div>
+
+  <div class="pal-row">
+
+    <div class="pal">
+
+      <div class="pal-sw" style="background:#4A7FA3" onclick="copyHex('#4A7FA3')">
+
+        <span class="pal-badge">Action</span>
+
+        <span class="pal-copy">Kopieren</span>
+
+      </div>
+
+      <div class="pal-info">
+
+        <div class="pal-nm">Protocol Blue</div>
+
+        <div class="pal-hex" onclick="copyHex('#4A7FA3')">#4A7FA3 · RGB 74 127 163</div>
+
+        <div class="pal-use">CTA-Buttons, Fortschritt, Highlights. Überall wo Handlung gefordert ist.</div>
+
+      </div>
+
+    </div>
+
+    <div class="pal">
+
+      <div class="pal-sw" style="background:#6BA08C" onclick="copyHex('#6BA08C')">
+
+        <span class="pal-badge">Recovery</span>
+
+        <span class="pal-copy">Kopieren</span>
+
+      </div>
+
+      <div class="pal-info">
+
+        <div class="pal-nm">Balance Green</div>
+
+        <div class="pal-hex" onclick="copyHex('#6BA08C')">#6BA08C · RGB 107 160 140</div>
+
+        <div class="pal-use">Erfolg, Check-In-Bestätigung, positive Daten. Du bist auf Kurs.</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Deep-Tech Neutrals</div>
+
+  <div class="neut-row">
+
+    <div class="neut" onclick="copyHex('#2F3640')"><div class="nsw" style="background:#2F3640"></div><div class="ninf"><div class="nnm">Anthracite</div><div class="nhx">#2F3640</div></div></div>
+
+    <div class="neut" onclick="copyHex('#526A82')"><div class="nsw" style="background:#526A82"></div><div class="ninf"><div class="nnm">Steel</div><div class="nhx">#526A82</div></div></div>
+
+    <div class="neut" onclick="copyHex('#E2E8EE')"><div class="nsw" style="background:#E2E8EE"></div><div class="ninf"><div class="nnm">Cloud</div><div class="nhx">#E2E8EE</div></div></div>
+
+    <div class="neut" onclick="copyHex('#F4F6F8')"><div class="nsw" style="background:#F4F6F8;border-bottom:1px solid #E2E8EE"></div><div class="ninf"><div class="nnm">Off-White</div><div class="nhx">#F4F6F8</div></div></div>
+
+  </div>
+
+  <div class="sub">Verhältnis</div>
+
+  <div class="ratio">
+
+    <div style="flex:55;background:#F4F6F8;color:var(--tx-m)">55%</div>
+
+    <div style="flex:20;background:#2F3640">20%</div>
+
+    <div style="flex:15;background:#4A7FA3">15%</div>
+
+    <div style="flex:10;background:#6BA08C">10%</div>
+
+  </div>
+
+  <div class="sub">Accessibility</div>
+
+  <div class="prose"><p>Jede Farbkombination im System erfüllt mindestens WCAG AA. Hier die wichtigsten Paarungen.</p></div>
+
+  <div class="a11y">
+
+    <div class="a11y-card">
+
+      <div class="a11y-sample" style="background:#2F3640;color:#F4F6F8">Aa</div>
+
+      <div class="a11y-info"><div class="a11y-pair">Anthracite auf Off-White</div><div class="a11y-ratio">Kontrast: 10.2:1 <span class="a11y-pass a11y-ok">AAA</span></div></div>
+
+    </div>
+
+    <div class="a11y-card">
+
+      <div class="a11y-sample" style="background:#4A7FA3;color:#FFFFFF">Aa</div>
+
+      <div class="a11y-info"><div class="a11y-pair">Action auf Weiss</div><div class="a11y-ratio">Kontrast: 4.6:1 <span class="a11y-pass a11y-ok">AA</span></div></div>
+
+    </div>
+
+    <div class="a11y-card">
+
+      <div class="a11y-sample" style="background:#F4F6F8;color:#526A82">Aa</div>
+
+      <div class="a11y-info"><div class="a11y-pair">Steel auf Off-White</div><div class="a11y-ratio">Kontrast: 4.8:1 <span class="a11y-pass a11y-ok">AA</span></div></div>
+
+    </div>
+
+    <div class="a11y-card">
+
+      <div class="a11y-sample" style="background:#E2E8EE;color:#99ADBD">Aa</div>
+
+      <div class="a11y-info"><div class="a11y-pair">Muted auf Cloud</div><div class="a11y-ratio">Kontrast: 2.1:1 <span class="a11y-pass a11y-fail">Fail</span></div></div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Regeln</div>
+
+  <div class="prose">
+
+    <p><strong>Action und Recovery nie direkt nebeneinander.</strong> Dazwischen liegt immer ein neutraler Ton.</p>
+
+    <p><strong>Anthracite ersetzt Schwarz.</strong> Reines #000 existiert nicht im System.</p>
+
+    <p><strong>Action = Aufforderung, Recovery = Bestätigung.</strong> Diese Zuordnung wird nie vertauscht.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="logo">
+
+  <div class="sh">
+
+    <div class="sh-num">02 · Logo</div>
+
+    <h2>Die <strong>Wortmarke</strong></h2>
+
+    <p class="sh-desc">Typografisch. Kein Symbol. Die Stärke liegt im Spacing und in der Gewichtung.</p>
+
+  </div>
+
+  <div class="logo-grid">
+
+    <div class="logo-card" style="background:var(--w);border:1px solid var(--line)">
+
+      <span class="lc-tag" style="color:var(--tx-m)">Hell</span>
+
+      <div class="logo-wm" style="color:#2F3640">Physique Alchemy</div>
+
+    </div>
+
+    <div class="logo-card" style="background:#2F3640">
+
+      <span class="lc-tag" style="color:rgba(255,255,255,.3)">Dunkel</span>
+
+      <div class="logo-wm" style="color:#fff">Physique Alchemy</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Clear Space</div>
+
+  <div class="prose"><p>Mindestabstand = Höhe des Buchstabens «P» auf jeder Seite. Nichts darf in diese Zone.</p></div>
+
+  <div class="clear-space">
+
+    <div class="cs-box">
+
+      <span class="cs-label cs-top">P</span>
+
+      <span class="cs-label cs-right">P</span>
+
+      <span class="cs-label cs-bottom">P</span>
+
+      <span class="cs-label cs-left">P</span>
+
+      <div class="logo-wm" style="color:#2F3640;font-size:16px">Physique Alchemy</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Mindestgrösse</div>
+
+  <div class="settings">
+
+    <div class="s-row"><div class="s-key">Wortmarke digital</div><div class="s-val">80px Breite</div></div>
+
+    <div class="s-row"><div class="s-key">Wortmarke Print</div><div class="s-val">25mm Breite</div></div>
+
+    <div class="s-row"><div class="s-key">Monogramm PA</div><div class="s-val">12mm / 32px — unter Mindestgrösse der Wortmarke</div></div>
+
+  </div>
+
+  <div class="sub">Richtig / Falsch</div>
+
+  <div class="dd-grid">
+
+    <div class="dd dd-ok">
+
+      <div class="dd-label">Richtig</div>
+
+      <div class="dd-wm" style="color:#2F3640;font-size:15px">Physique Alchemy</div>
+
+      <div class="dd-desc">Originalproportionen, genug Weissraum, definierte Farben.</div>
+
+    </div>
+
+    <div class="dd dd-no">
+
+      <div class="dd-label">Falsch</div>
+
+      <div class="dd-wm" style="color:#C0503C;transform:scaleX(1.3);font-size:15px">Physique Alchemy</div>
+
+      <div class="dd-desc">Gestreckt, verzerrt, eigene Farben.</div>
+
+    </div>
+
+    <div class="dd dd-ok">
+
+      <div class="dd-label">Richtig</div>
+
+      <div style="padding:20px;background:var(--off);border-radius:8px"><div class="dd-wm" style="color:#2F3640;font-size:14px">Physique Alchemy</div></div>
+
+      <div class="dd-desc">Auf ruhigem, sauberem Hintergrund.</div>
+
+    </div>
+
+    <div class="dd dd-no">
+
+      <div class="dd-label">Falsch</div>
+
+      <div style="padding:20px;background:repeating-linear-gradient(45deg,#eee,#eee 4px,#ddd 4px,#ddd 8px);border-radius:8px"><div class="dd-wm" style="color:#888;font-size:14px">Physique Alchemy</div></div>
+
+      <div class="dd-desc">Auf unruhigem Muster ohne Overlay.</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Downloads</div>
+
+  <div class="dl-row">
+
+    <a href="#" class="dl-btn" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg> SVG</a>
+
+    <a href="#" class="dl-btn" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg> PNG @2x</a>
+
+    <a href="#" class="dl-btn" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg> PDF</a>
+
+  </div>
+
+  <div style="margin-top:48px">
+
+    <div class="sh">
+
+      <div class="sh-num">02b · Icon Logos</div>
+
+      <h2>Symbol-<strong>Varianten</strong></h2>
+
+      <p class="sh-desc">6 Icon-Konzepte im Gradient-Stil. Geometrische Formen, Blau-Palette.</p>
+
+    </div>
+
+    <div class="icon-logo-grid">
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp0">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilnb1" x1="30" y1="10" x2="170" y2="130"><stop offset="0%" stop-color="#60A5FA"/><stop offset="50%" stop-color="#3B82C4"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+              <linearGradient id="ilnb2" x1="60" y1="5" x2="150" y2="125"><stop offset="0%" stop-color="#93C5FD"/><stop offset="100%" stop-color="#2E6DA0"/></linearGradient>
+
+            </defs>
+
+            <path d="M100,15 C82,13 64,20 52,30 C40,40 33,55 30,72 C27,89 30,106 38,116 C42,122 40,128 43,133 C46,138 54,140 64,140 C76,140 90,139 100,138Z" fill="url(#ilnb1)"/>
+
+            <path d="M100,15 C118,13 136,20 148,30 C160,40 167,55 170,72 C173,89 170,106 162,116 C158,122 160,128 157,133 C154,138 146,140 136,140 C124,140 110,139 100,138Z" fill="url(#ilnb2)" opacity=".8"/>
+
+            <path d="M100,20V134" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+
+            <path d="M38,42 C54,34 74,32 96,38" stroke="rgba(255,255,255,.2)" stroke-width=".8" fill="none"/>
+
+            <path d="M32,66 C50,56 72,54 96,60" stroke="rgba(255,255,255,.18)" stroke-width=".8" fill="none"/>
+
+            <path d="M32,90 C50,80 72,78 96,84" stroke="rgba(255,255,255,.15)" stroke-width=".8" fill="none"/>
+
+            <path d="M38,112 C54,104 72,102 96,108" stroke="rgba(255,255,255,.12)" stroke-width=".8" fill="none"/>
+
+            <path d="M162,42 C146,34 126,32 104,38" stroke="rgba(255,255,255,.18)" stroke-width=".8" fill="none"/>
+
+            <path d="M168,66 C150,56 128,54 104,60" stroke="rgba(255,255,255,.15)" stroke-width=".8" fill="none"/>
+
+            <path d="M168,90 C150,80 128,78 104,84" stroke="rgba(255,255,255,.12)" stroke-width=".8" fill="none"/>
+
+            <path d="M162,112 C146,104 128,102 104,108" stroke="rgba(255,255,255,.1)" stroke-width=".8" fill="none"/>
+
+            <circle cx="62" cy="48" r="3.5" fill="#fff" opacity=".7"/><circle cx="48" cy="76" r="3" fill="#fff" opacity=".6"/><circle cx="60" cy="100" r="2.5" fill="#fff" opacity=".5"/>
+
+            <circle cx="138" cy="46" r="3" fill="#fff" opacity=".6"/><circle cx="150" cy="74" r="2.5" fill="#fff" opacity=".5"/><circle cx="140" cy="98" r="3.5" fill="#fff" opacity=".6"/>
+
+            <circle cx="100" cy="62" r="4" fill="#fff" opacity=".75"/>
+
+            <line x1="62" y1="48" x2="100" y2="62" stroke="#fff" stroke-width=".6" opacity=".35"/>
+
+            <line x1="138" y1="46" x2="100" y2="62" stroke="#fff" stroke-width=".6" opacity=".35"/>
+
+            <line x1="48" y1="76" x2="62" y2="48" stroke="#fff" stroke-width=".5" opacity=".25"/>
+
+            <line x1="150" y1="74" x2="138" y2="46" stroke="#fff" stroke-width=".5" opacity=".25"/>
+
+            <line x1="100" y1="62" x2="60" y2="100" stroke="#fff" stroke-width=".4" opacity=".2"/>
+
+            <line x1="100" y1="62" x2="140" y2="98" stroke="#fff" stroke-width=".4" opacity=".2"/>
+
+            <text x="100" y="168" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(0,'light')">Hell</button><button class="ilt" onclick="ilBg(0,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Neural Brain</div><div class="il-desc">Gehirn aus zwei Gradient-Hemisphären, Sulci, neuronale Knoten.</div></div>
+
+      </div>
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp1">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilht1" x1="30" y1="10" x2="170" y2="140"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+              <linearGradient id="ilht2" x1="100" y1="5" x2="100" y2="145"><stop offset="0%" stop-color="#93C5FD"/><stop offset="100%" stop-color="#2E6DA0"/></linearGradient>
+
+            </defs>
+
+            <path d="M65,15 C42,48 130,65 110,90 C90,115 160,132 138,155" stroke="url(#ilht1)" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+            <path d="M135,15 C158,48 70,65 90,90 C110,115 40,132 62,155" stroke="url(#ilht2)" stroke-width="4.5" stroke-linecap="round" fill="none" opacity=".8"/>
+
+            <line x1="74" y1="30" x2="126" y2="30" stroke="#fff" stroke-width="1" opacity=".2"/>
+
+            <line x1="88" y1="55" x2="112" y2="55" stroke="#fff" stroke-width="1" opacity=".15"/>
+
+            <line x1="88" y1="125" x2="112" y2="125" stroke="#fff" stroke-width="1" opacity=".15"/>
+
+            <line x1="74" y1="142" x2="126" y2="142" stroke="#fff" stroke-width="1" opacity=".2"/>
+
+            <circle cx="100" cy="55" r="5" fill="#3B82C4" opacity=".8"/>
+
+            <circle cx="100" cy="90" r="6.5" fill="#60A5FA" opacity=".7"/>
+
+            <circle cx="100" cy="125" r="5" fill="#3B82C4" opacity=".8"/>
+
+            <circle cx="100" cy="90" r="18" fill="#60A5FA" opacity=".08"/>
+
+            <text x="100" y="174" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(1,'light')">Hell</button><button class="ilt" onclick="ilBg(1,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Helix Transform</div><div class="il-desc">DNA-Doppelhelix. Transformation auf molekularer Ebene.</div></div>
+
+      </div>
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp2">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilps1" x1="40" y1="5" x2="160" y2="150"><stop offset="0%" stop-color="#93C5FD"/><stop offset="40%" stop-color="#4A8EC4"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+            </defs>
+
+            <path d="M100,10 L160,36 C163,70 161,100 150,124 C139,148 120,158 100,164 C80,158 61,148 50,124 C39,100 37,70 40,36Z" fill="url(#ilps1)"/>
+
+            <path d="M100,26 L146,46 C147,72 146,94 138,112 C130,130 118,138 100,142 C82,138 70,130 62,112 C54,94 53,72 54,46Z" fill="url(#ilps1)" opacity=".15"/>
+
+            <path d="M52,88 L76,88 L82,88 L87,72 L92,106 L97,62 L102,100 L107,88 L112,88 L148,88" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+
+            <path d="M52,88 L76,88 L82,88 L87,72 L92,106 L97,62 L102,100 L107,88 L112,88 L148,88" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".08"/>
+
+            <text x="100" y="174" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(2,'light')">Hell</button><button class="ilt" onclick="ilBg(2,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Pulse Shield</div><div class="il-desc">Schild mit EKG-Herzschlag. Schutz trifft Vitalzeichen.</div></div>
+
+      </div>
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp3">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilaf1" x1="60" y1="15" x2="140" y2="150"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+              <linearGradient id="ilaf2" x1="70" y1="90" x2="130" y2="148"><stop offset="0%" stop-color="#93C5FD" stop-opacity=".4"/><stop offset="100%" stop-color="#3B82C4" stop-opacity=".15"/></linearGradient>
+
+            </defs>
+
+            <path d="M85,16 L85,60 L48,128 C44,136 48,146 58,148 L142,148 C152,146 156,136 152,128 L115,60 L115,16Z" fill="url(#ilaf1)"/>
+
+            <rect x="85" y="8" width="30" height="12" rx="2.5" fill="url(#ilaf1)" opacity=".7"/>
+
+            <path d="M58,124 C72,114 86,118 100,112 C114,106 128,110 142,124 L142,148 L58,148Z" fill="url(#ilaf2)"/>
+
+            <circle cx="82" cy="100" r="4" fill="#fff" opacity=".35"/>
+
+            <circle cx="104" cy="92" r="5" fill="#fff" opacity=".3"/>
+
+            <circle cx="120" cy="106" r="3.5" fill="#fff" opacity=".3"/>
+
+            <circle cx="92" cy="82" r="3" fill="#fff" opacity=".4"/>
+
+            <circle cx="96" cy="64" r="2.2" fill="#93C5FD" opacity=".6"/>
+
+            <circle cx="104" cy="48" r="1.5" fill="#93C5FD" opacity=".45"/>
+
+            <circle cx="100" cy="34" r="1" fill="#93C5FD" opacity=".3"/>
+
+            <text x="100" y="170" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(3,'light')">Hell</button><button class="ilt" onclick="ilBg(3,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Alchemy Flask</div><div class="il-desc">Erlenmeyerkolben. Wissenschaft trifft Transformation.</div></div>
+
+      </div>
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp4">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilbg1" x1="50" y1="2" x2="150" y2="155"><stop offset="0%" stop-color="#60A5FA"/><stop offset="40%" stop-color="#4A8EC4"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+              <linearGradient id="ilbg2" x1="70" y1="2" x2="130" y2="155"><stop offset="0%" stop-color="#93C5FD"/><stop offset="100%" stop-color="#2E6DA0"/></linearGradient>
+
+            </defs>
+
+            <ellipse cx="100" cy="14" rx="11" ry="13" fill="url(#ilbg1)" opacity=".85"/>
+
+            <path d="M94,25 L89,34 L100,37 L111,34 L106,25" fill="url(#ilbg1)" opacity=".8"/>
+
+            <path d="M89,34 L56,40 C46,44 42,54 44,62 L52,62 L68,55 L82,46 L90,38Z" fill="url(#ilbg1)"/>
+
+            <path d="M111,34 L144,40 C154,44 158,54 156,62 L148,62 L132,55 L118,46 L110,38Z" fill="url(#ilbg2)" opacity=".75"/>
+
+            <path d="M82,46 L68,55 L65,74 L78,78 L98,70 L98,46Z" fill="url(#ilbg1)"/>
+
+            <path d="M118,46 L132,55 L135,74 L122,78 L102,70 L102,46Z" fill="url(#ilbg2)" opacity=".78"/>
+
+            <path d="M52,62 L44,62 L36,82 C34,88 36,96 40,100 L46,98 L54,82 L60,68Z" fill="url(#ilbg1)" opacity=".85"/>
+
+            <path d="M40,100 L36,118 L34,134 L40,136 L44,120 L46,98Z" fill="url(#ilbg1)" opacity=".7"/>
+
+            <path d="M148,62 L156,62 L164,82 C166,88 164,96 160,100 L154,98 L146,82 L140,68Z" fill="url(#ilbg2)" opacity=".65"/>
+
+            <path d="M160,100 L164,118 L166,134 L160,136 L156,120 L154,98Z" fill="url(#ilbg2)" opacity=".55"/>
+
+            <path d="M65,74 L62,96 L68,108 L78,110 L96,100 L98,78 L78,78Z" fill="url(#ilbg1)" opacity=".9"/>
+
+            <path d="M135,74 L138,96 L132,108 L122,110 L104,100 L102,78 L122,78Z" fill="url(#ilbg2)" opacity=".72"/>
+
+            <line x1="100" y1="70" x2="100" y2="130" stroke="rgba(255,255,255,.18)" stroke-width=".7"/>
+
+            <line x1="83" y1="82" x2="98" y2="82" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>
+
+            <line x1="102" y1="82" x2="117" y2="82" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+
+            <line x1="83" y1="92" x2="98" y2="92" stroke="rgba(255,255,255,.15)" stroke-width=".5"/>
+
+            <line x1="102" y1="92" x2="117" y2="92" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+
+            <line x1="85" y1="102" x2="98" y2="102" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+
+            <line x1="102" y1="102" x2="115" y2="102" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+
+            <path d="M78,110 L68,108 L72,132 L84,136 L98,133 L100,130Z" fill="url(#ilbg1)" opacity=".82"/>
+
+            <path d="M122,110 L132,108 L128,132 L116,136 L102,133 L100,130Z" fill="url(#ilbg2)" opacity=".64"/>
+
+            <path d="M72,132 L62,156 L76,158 L88,150 L84,136Z" fill="url(#ilbg1)" opacity=".78"/>
+
+            <path d="M128,132 L138,156 L124,158 L112,150 L116,136Z" fill="url(#ilbg2)" opacity=".6"/>
+
+            <circle cx="76" cy="50" r="2.8" fill="#fff" opacity=".65"/><circle cx="124" cy="50" r="2.8" fill="#fff" opacity=".55"/>
+
+            <circle cx="100" cy="40" r="2.2" fill="#fff" opacity=".55"/><circle cx="86" cy="88" r="2.5" fill="#fff" opacity=".6"/>
+
+            <circle cx="114" cy="88" r="2.2" fill="#fff" opacity=".5"/><circle cx="100" cy="116" r="3" fill="#fff" opacity=".65"/>
+
+            <line x1="76" y1="50" x2="100" y2="40" stroke="#fff" stroke-width=".5" opacity=".3"/>
+
+            <line x1="124" y1="50" x2="100" y2="40" stroke="#fff" stroke-width=".5" opacity=".25"/>
+
+            <line x1="76" y1="50" x2="86" y2="88" stroke="#fff" stroke-width=".4" opacity=".2"/>
+
+            <line x1="124" y1="50" x2="114" y2="88" stroke="#fff" stroke-width=".4" opacity=".2"/>
+
+            <line x1="86" y1="88" x2="100" y2="116" stroke="#fff" stroke-width=".35" opacity=".18"/>
+
+            <line x1="114" y1="88" x2="100" y2="116" stroke="#fff" stroke-width=".35" opacity=".18"/>
+
+            <text x="100" y="174" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(4,'light')">Hell</button><button class="ilt" onclick="ilBg(4,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Body Graph</div><div class="il-desc">Muskulöse Greek-God-Silhouette mit Datenpunkten und Verbindungslinien.</div></div>
+
+      </div>
+
+      <div class="il-card">
+
+        <div class="il-prev" id="ilp5">
+
+          <svg width="200" height="180" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+
+              <linearGradient id="ilac1" x1="35" y1="15" x2="165" y2="125"><stop offset="0%" stop-color="#60A5FA"/><stop offset="100%" stop-color="#1E5A8A"/></linearGradient>
+
+              <linearGradient id="ilac2" x1="100" y1="10" x2="100" y2="130"><stop offset="0%" stop-color="#93C5FD"/><stop offset="100%" stop-color="#2E6DA0"/></linearGradient>
+
+            </defs>
+
+            <ellipse cx="100" cy="75" rx="62" ry="24" stroke="url(#ilac1)" stroke-width="1.8" opacity=".65" transform="rotate(-30 100 75)"/>
+
+            <ellipse cx="100" cy="75" rx="62" ry="24" stroke="url(#ilac2)" stroke-width="1.8" opacity=".55" transform="rotate(30 100 75)"/>
+
+            <ellipse cx="100" cy="75" rx="62" ry="24" stroke="url(#ilac1)" stroke-width="1.8" opacity=".4" transform="rotate(90 100 75)"/>
+
+            <circle cx="100" cy="75" r="18" fill="url(#ilac1)"/>
+
+            <circle cx="100" cy="75" r="28" fill="url(#ilac1)" opacity=".08"/>
+
+            <circle cx="100" cy="75" r="9" fill="#fff" opacity=".2"/>
+
+            <circle cx="46" cy="52" r="5" fill="#60A5FA" opacity=".85"/>
+
+            <circle cx="154" cy="98" r="4.5" fill="#3B82C4" opacity=".75"/>
+
+            <circle cx="100" cy="18" r="4" fill="#93C5FD" opacity=".7"/>
+
+            <circle cx="100" cy="132" r="4" fill="#3B82C4" opacity=".6"/>
+
+            <circle cx="52" cy="102" r="4.5" fill="#4A8EC4" opacity=".7"/>
+
+            <circle cx="148" cy="48" r="5" fill="#60A5FA" opacity=".75"/>
+
+            <text x="100" y="165" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="12" letter-spacing="3" class="ilt-text" fill="#2F3640">PHYSIQUE ALCHEMY</text>
+
+          </svg>
+
+          <div class="il-toggle"><button class="ilt on" onclick="ilBg(5,'light')">Hell</button><button class="ilt" onclick="ilBg(5,'dark')">Dunkel</button></div>
+
+        </div>
+
+        <div class="il-info"><div class="il-nm">Atom Core</div><div class="il-desc">Drei Orbitale, Gradient-Kern, Elektronen. Alchemy = Materie.</div></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="typography">
+
+  <div class="sh">
+
+    <div class="sh-num">03 · Typografie</div>
+
+    <h2>Zwei Schriften. <strong>Eine Sprache.</strong></h2>
+
+    <p class="sh-desc">Outfit für Struktur. DM Sans für Lesbarkeit bis 11px auf einer Smartwatch.</p>
+
+  </div>
+
+  <div class="sub">Headline: Outfit</div>
+
+  <div class="type-box">
+
+    <div class="tb-row">
+
+      <div class="tb-label">Display · Light 200</div>
+
+      <div style="font-family:var(--fd);font-size:36px;font-weight:200;color:var(--ink);letter-spacing:-.03em;line-height:1.05">Das Protokoll für deinen Körper.</div>
+
+      <div class="tb-specs"><span>36–56px</span><span>-0.03em</span><span>1.05</span></div>
+
+    </div>
+
+    <div class="tb-row">
+
+      <div class="tb-label">Headline · Bold 700</div>
+
+      <div style="font-family:var(--fd);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1.15">Resultate. Nicht Versprechen.</div>
+
+      <div class="tb-specs"><span>24–34px</span><span>-0.02em</span><span>1.15</span></div>
+
+    </div>
+
+    <div class="tb-row">
+
+      <div class="tb-label">Label · Medium 500</div>
+
+      <div style="font-family:var(--fd);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--action)">Natural Bodybuilding · Coaching</div>
+
+      <div class="tb-specs"><span>9–12px</span><span>0.14em</span><span>Uppercase</span></div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Body: DM Sans</div>
+
+  <div class="type-box">
+
+    <div class="tb-row">
+
+      <div class="tb-label">Body · Regular 400</div>
+
+      <div style="font-family:var(--fb);font-size:15px;color:var(--tx);line-height:1.8;max-width:480px">Physique Alchemy arbeitet evidenzbasiert. Kein Standardplan. Jeder Athlet erhält eine Strategie, die auf seine Ziele zugeschnitten ist.</div>
+
+      <div class="tb-specs"><span>14–16px</span><span>1.8</span><span>Max 640px</span></div>
+
+    </div>
+
+    <div class="tb-row">
+
+      <div class="tb-label">App / Small · Regular 400</div>
+
+      <div style="font-family:var(--fb);font-size:11px;color:var(--tx-l);line-height:1.55">Check-In abgeschlossen. Nächstes Update in 6 Tagen.</div>
+
+      <div class="tb-specs"><span>11px</span><span>1.55</span><span>Smartwatch-tauglich</span></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec-full" id="styles" style="max-width:none;padding-left:40px;padding-right:40px">
+
+  <div style="max-width:840px">
+
+    <div class="sh">
+
+      <div class="sh-num">04 · Styles</div>
+
+      <h2>Vier <strong>Hintergrund-Varianten</strong></h2>
+
+      <p class="sh-desc">Gleiche Palette, gleiche Typo, unterschiedliches Staging. Klick auf einen Style für die volle Preview.</p>
+
+    </div>
+
+  </div>
+
+  <div class="sty-grid" id="styGrid"></div>
+
+  <div class="sty-detail" id="styDetail">
+
+    <div class="sty-detail-header">
+
+      <div class="sty-detail-name" id="sdName"></div>
+
+      <div class="sty-detail-close" onclick="closeStyle()">✕</div>
+
+    </div>
+
+    <div class="sty-detail-body">
+
+      <div class="sty-detail-preview" id="sdPreview"></div>
+
+      <div class="sty-detail-info" id="sdInfo"></div>
+
+    </div>
+
+  </div>
+
+  <div style="max-width:840px;margin-top:32px">
+
+    <div class="sub">Wann welchen Style?</div>
+
+    <div class="prose">
+
+      <p><strong>Clean</strong> ist der Standard. Website, App, Dokumente. Im Zweifel: Clean.</p>
+
+      <p><strong>Marker</strong> für Social Media und Ads. Wenn ein Wort hängen bleiben muss.</p>
+
+      <p><strong>Glow</strong> für Landing Pages und Hero-Sektionen. Subtile Tiefe ohne Ablenkung.</p>
+
+      <p><strong>Topo</strong> für Daten-Kontexte: Reports, Dashboards, analytische Inhalte.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="imagery">
+
+  <div class="sh">
+
+    <div class="sh-num">05 · Bildsprache</div>
+
+    <h2>Authentic <strong>Motion</strong></h2>
+
+    <p class="sh-desc">Der Körper im Prozess. Echter Schweiss, echtes Licht. Kein Studio mit Nebelmaschine.</p>
+
+  </div>
+
+  <div class="img-grid">
+
+    <div class="img-c img-ok"><h4>Authentischer Schweiss</h4><p>Echte Trainingsmomente. Die Haut glänzt, der Griff ist fest.</p></div>
+
+    <div class="img-c img-no"><h4>Klinische Reinheit</h4><p>Keine geleckten Studio-Shots auf weissem Hintergrund.</p></div>
+
+    <div class="img-c img-ok"><h4>Kontrollierte Schärfe</h4><p>Scharfer Fokus auf den Athleten. Hintergrund leicht soft.</p></div>
+
+    <div class="img-c img-no"><h4>Motion Blur</h4><p>Keine absichtliche Unschärfe. Physique Alchemy steht für Präzision.</p></div>
+
+  </div>
+
+  <div class="sub">Technische Parameter</div>
+
+  <div class="settings">
+
+    <div class="s-row"><div class="s-key">Kontrast</div><div class="s-val">+10 bis +15%. Muskeldefinition sichtbar.</div></div>
+
+    <div class="s-row"><div class="s-key">Sättigung</div><div class="s-val">−15 bis −20%. Hintergründe entsättigt.</div></div>
+
+    <div class="s-row"><div class="s-key">Temperatur</div><div class="s-val">Neutral bis leicht kühl.</div></div>
+
+    <div class="s-row"><div class="s-key">Crop</div><div class="s-val">Min. 30% negativer Raum um das Motiv.</div></div>
+
+    <div class="s-row"><div class="s-key">Overlay</div><div class="s-val">Anthracite, 50–65% Opacity.</div></div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="icons">
+
+  <div class="sh">
+
+    <div class="sh-num">06 · Icons &amp; Elemente</div>
+
+    <h2>Funktional. <strong>Nicht dekorativ.</strong></h2>
+
+    <p class="sh-desc">1.5px Strichstärke, abgerundete Enden. Erkennbar auf 16px.</p>
+
+  </div>
+
+  <div class="sub">Beispiel-Icons</div>
+
+  <div class="icon-row">
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg></div>
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div>
+
+    <div class="icon-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A7FA3" stroke-width="1.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+
+  </div>
+
+  <div class="sub">Border Radius</div>
+
+  <div class="radius-row">
+
+    <div class="rad"><div class="rad-box" style="border-radius:4px"></div><div class="rad-t">4px · Inputs</div></div>
+
+    <div class="rad"><div class="rad-box" style="border-radius:8px"></div><div class="rad-t">8px · Buttons</div></div>
+
+    <div class="rad"><div class="rad-box" style="border-radius:14px"></div><div class="rad-t">14px · Cards</div></div>
+
+    <div class="rad"><div class="rad-box" style="border-radius:100px;width:80px"></div><div class="rad-t">Full · Pills</div></div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="motion">
+
+  <div class="sh">
+
+    <div class="sh-num">07 · Motion</div>
+
+    <h2>Wie sich Dinge <strong>bewegen</strong></h2>
+
+    <p class="sh-desc">Schnell rein, weich raus. Keine Bounce-Effekte, kein Overshoot. Hover zum Testen.</p>
+
+  </div>
+
+  <div class="motion-grid">
+
+    <div class="mo">
+
+      <div class="mo-demo ease"></div>
+
+      <h4>Standard</h4>
+
+      <p>300ms · ease-out<br>Buttons, Links, Hover</p>
+
+    </div>
+
+    <div class="mo">
+
+      <div class="mo-demo spring"></div>
+
+      <h4>Enter</h4>
+
+      <p>500ms · spring<br>Modals, Cards, Toasts</p>
+
+    </div>
+
+    <div class="mo">
+
+      <div class="mo-demo soft"></div>
+
+      <h4>Soft</h4>
+
+      <p>600ms · ease<br>Page transitions, Fades</p>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Regeln</div>
+
+  <div class="prose">
+
+    <p><strong>Kein Bounce.</strong> Elemente springen nicht. Sie gleiten an ihren Platz.</p>
+
+    <p><strong>Kein Parallax-Scroll.</strong> Der Content bewegt sich mit der Seite, nicht dagegen.</p>
+
+    <p><strong>Opacity vor Transform.</strong> Wenn ein Element erscheint, fadet es zuerst ein (opacity), dann bewegt es sich (transform). Nie gleichzeitig starten.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="social">
+
+  <div class="sh">
+
+    <div class="sh-num">08 · Social Media</div>
+
+    <h2>Formate &amp; <strong>Templates</strong></h2>
+
+    <p class="sh-desc">Drei Formate decken 90% der Touchpoints ab.</p>
+
+  </div>
+
+  <div class="social-grid">
+
+    <div class="soc">
+
+      <div class="soc-preview" style="padding:20px"><div class="soc-frame" style="width:100%;aspect-ratio:1;border-radius:6px"><span>1080 × 1080</span></div></div>
+
+      <div class="soc-info"><div class="soc-name">Feed Post</div><div class="soc-size">1:1 · 1080px</div></div>
+
+    </div>
+
+    <div class="soc">
+
+      <div class="soc-preview" style="padding:20px"><div class="soc-frame" style="width:60%;aspect-ratio:9/16;border-radius:6px;margin:0 auto"><span>1080 × 1920</span></div></div>
+
+      <div class="soc-info"><div class="soc-name">Story / Reel</div><div class="soc-size">9:16 · 1080px</div></div>
+
+    </div>
+
+    <div class="soc">
+
+      <div class="soc-preview" style="padding:20px"><div class="soc-frame" style="width:100%;aspect-ratio:4/5;border-radius:6px"><span>1080 × 1350</span></div></div>
+
+      <div class="soc-info"><div class="soc-name">Portrait Post</div><div class="soc-size">4:5 · 1080px</div></div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Layout-Regeln</div>
+
+  <div class="prose">
+
+    <p><strong>Text steht unten links.</strong> Nie mittig, nie oben. Das Auge wandert von oben (Bild) nach unten (Text).</p>
+
+    <p><strong>Max. 2 Zeilen Headline.</strong> Wenn es nicht in zwei Zeilen passt, ist es zu lang.</p>
+
+    <p><strong>Kein Logo auf dem Post.</strong> Der Account-Name reicht. Logo nur auf der letzten Carousel-Seite.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="post-single">
+
+  <div class="sh">
+
+    <div class="sh-num">09 · Single Post</div>
+
+    <h2>Angebot / <strong>Announcement</strong></h2>
+
+    <p class="sh-desc">Ein neues Coaching-Angebot ankündigen. Foto + Overlay + Headline.</p>
+
+  </div>
+
+  <div class="sc-grid">
+
+    <div class="sc-phone">
+
+      <div class="sc-head"><div class="sc-av">PA</div><div><div class="sc-nm">Physique Alchemy</div><div class="sc-hndl">@pa.protocol</div></div></div>
+
+      <div class="sc-img" style="background:#2F3640;display:flex;flex-direction:column;justify-content:flex-end;padding:20px">
+
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(47,54,64,.85) 0%,rgba(47,54,64,.15) 60%);border-radius:10px"></div>
+
+        <div style="position:relative;z-index:2">
+
+          <div style="font-family:var(--fd);font-size:7px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#4A7FA3;margin-bottom:6px">Neues Angebot</div>
+
+          <div style="font-family:var(--fd);font-size:18px;font-weight:200;color:#fff;line-height:1.1;letter-spacing:-.02em">Dein Protokoll.<br><span style="background:#4A7FA3;padding:1px 4px;display:inline;line-height:1.5;box-decoration-break:clone;-webkit-box-decoration-break:clone"><strong style="font-weight:700">Ab sofort.</strong></span></div>
+
+        </div>
+
+      </div>
+
+      <div class="sc-cap"><strong>pa.protocol</strong> Kein Standardplan. Ab jetzt ein Protokoll, das sich an deinen Alltag anpasst.</div>
+
+    </div>
+
+    <div>
+
+      <div class="ann"><div class="ann-n">1</div><div class="ann-t"><strong>Foto:</strong> Echtes Training. Entsättigt, Kontrast erhöht.</div></div>
+
+      <div class="ann"><div class="ann-n">2</div><div class="ann-t"><strong>Overlay:</strong> Anthracite Gradient von unten, 85% → 15%.</div></div>
+
+      <div class="ann"><div class="ann-n">3</div><div class="ann-t"><strong>Tag:</strong> Outfit Medium, Uppercase, Protocol Blue.</div></div>
+
+      <div class="ann"><div class="ann-n">4</div><div class="ann-t"><strong>Headline:</strong> Outfit Light + Marker auf der Key-Phrase.</div></div>
+
+      <div class="ann"><div class="ann-n">5</div><div class="ann-t"><strong>Caption:</strong> DM Sans. Kurz. Kein Emoji.</div></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="post-carousel">
+
+  <div class="sh">
+
+    <div class="sh-num">10 · Carousel / Slides</div>
+
+    <h2>Wissen <strong>vermitteln</strong></h2>
+
+    <p class="sh-desc">5 Slides. Slide 1 ist der Hook, Slides 2–4 liefern den Inhalt, Slide 5 ist der CTA.</p>
+
+  </div>
+
+  <div style="display:flex;gap:8px;overflow-x:auto;padding:24px 0;margin:0 -8px">
+
+    <div style="min-width:180px;aspect-ratio:4/5;border-radius:12px;background:#2F3640;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;position:relative;overflow:hidden;flex-shrink:0">
+
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(47,54,64,.9) 0%,rgba(47,54,64,.3) 60%);border-radius:12px"></div>
+
+      <div style="position:absolute;top:8px;left:10px;font-family:var(--fd);font-size:7px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:.06em">1/5</div>
+
+      <div style="position:relative;z-index:2">
+
+        <div style="font-family:var(--fd);font-size:14px;font-weight:200;color:#fff;line-height:1.15;letter-spacing:-.02em">Warum du nicht<br><span style="background:#4A7FA3;padding:1px 3px;display:inline;line-height:1.5;box-decoration-break:clone;-webkit-box-decoration-break:clone"><strong style="font-weight:700">zunimmst.</strong></span></div>
+
+      </div>
+
+    </div>
+
+    <div style="min-width:180px;aspect-ratio:4/5;border-radius:12px;background:var(--off);display:flex;flex-direction:column;justify-content:center;padding:16px;position:relative;border:1px solid var(--line);flex-shrink:0">
+
+      <div style="position:absolute;top:8px;left:10px;font-family:var(--fd);font-size:7px;font-weight:500;color:var(--tx-m);letter-spacing:.06em">2/5</div>
+
+      <div style="font-family:var(--fd);font-size:32px;font-weight:200;color:var(--action);line-height:1;letter-spacing:-.02em;margin-bottom:8px">01</div>
+
+      <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Du isst zu wenig.</div>
+
+      <div style="font-size:9px;color:var(--tx);line-height:1.55">Dein Stoffwechsel fährt runter. Weniger Kalorien heisst nicht automatisch weniger Gewicht.</div>
+
+    </div>
+
+    <div style="min-width:180px;aspect-ratio:4/5;border-radius:12px;background:var(--off);display:flex;flex-direction:column;justify-content:center;padding:16px;position:relative;border:1px solid var(--line);flex-shrink:0">
+
+      <div style="position:absolute;top:8px;left:10px;font-family:var(--fd);font-size:7px;font-weight:500;color:var(--tx-m);letter-spacing:.06em">3/5</div>
+
+      <div style="font-family:var(--fd);font-size:32px;font-weight:200;color:var(--action);line-height:1;letter-spacing:-.02em;margin-bottom:8px">02</div>
+
+      <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Kein Tracking.</div>
+
+      <div style="font-size:9px;color:var(--tx);line-height:1.55">Was du nicht misst, kannst du nicht verbessern. Daten sind der Kompass.</div>
+
+    </div>
+
+    <div style="min-width:180px;aspect-ratio:4/5;border-radius:12px;background:var(--off);display:flex;flex-direction:column;justify-content:center;padding:16px;position:relative;border:1px solid var(--line);flex-shrink:0">
+
+      <div style="position:absolute;top:8px;left:10px;font-family:var(--fd);font-size:7px;font-weight:500;color:var(--tx-m);letter-spacing:.06em">4/5</div>
+
+      <div style="font-family:var(--fd);font-size:32px;font-weight:200;color:var(--action);line-height:1;letter-spacing:-.02em;margin-bottom:8px">03</div>
+
+      <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px">Falsches Timing.</div>
+
+      <div style="font-size:9px;color:var(--tx);line-height:1.55">Bulk und Diet haben ihre Phase. Beides gleichzeitig funktioniert nicht.</div>
+
+    </div>
+
+    <div style="min-width:180px;aspect-ratio:4/5;border-radius:12px;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;flex-shrink:0">
+
+      <div style="position:absolute;top:8px;left:10px;font-family:var(--fd);font-size:7px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:.06em">5/5</div>
+
+      <div style="font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:4px">Physique Alchemy</div>
+
+      <div style="font-family:var(--fd);font-size:7px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px">Physique Alchemy</div>
+
+      <div style="font-family:var(--fd);font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(255,255,255,.2);border-radius:4px;color:rgba(255,255,255,.6)">DM «Coach»</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Regeln für Slides</div>
+
+  <div class="prose">
+
+    <p><strong>Slide 1: immer dunkel.</strong> Foto + Overlay oder reines Anthracite. Hook-Headline mit Marker. Muss in der Feed-Vorschau stoppen.</p>
+
+    <p><strong>Slides 2–4: immer hell.</strong> Off-White Hintergrund, nummerierte Punkte, kurze Texte. Max. 3 Sätze pro Slide.</p>
+
+    <p><strong>Slide 5: CTA.</strong> Anthracite-Hintergrund, Logo zentriert, ein CTA. Kein weiterer Text.</p>
+
+    <p><strong>Slide-Nummer oben links.</strong> Immer. Gibt dem Leser Orientierung wie weit er ist.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="post-story">
+
+  <div class="sh">
+
+    <div class="sh-num">11 · Story / Reel</div>
+
+    <h2>Vertikale <strong>Formate</strong></h2>
+
+    <p class="sh-desc">9:16. Der Text sitzt im unteren Drittel. Oben bleibt Platz fürs Bild.</p>
+
+  </div>
+
+  <div style="display:flex;gap:16px;margin:24px 0">
+
+    <div style="width:160px;aspect-ratio:9/16;border-radius:14px;background:#2F3640;position:relative;overflow:hidden;flex-shrink:0">
+
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(47,54,64,.92) 0%,rgba(47,54,64,.1) 55%)"></div>
+
+      <div style="position:absolute;bottom:20px;left:14px;right:14px;z-index:2">
+
+        <div style="font-family:var(--fd);font-size:7px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#6BA08C;margin-bottom:5px">Check-In</div>
+
+        <div style="font-family:var(--fd);font-size:13px;font-weight:200;color:#fff;line-height:1.15;letter-spacing:-.01em">Woche 12.<br><strong style="font-weight:700">−8.4kg.</strong></div>
+
+        <div style="font-size:8px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.4">Makros gehalten. Training 4x. Schlaf verbessert.</div>
+
+      </div>
+
+    </div>
+
+    <div style="width:160px;aspect-ratio:9/16;border-radius:14px;background:var(--off);position:relative;overflow:hidden;flex-shrink:0;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;padding:16px">
+
+      <div style="font-family:var(--fd);font-size:28px;font-weight:200;color:var(--action);line-height:1;margin-bottom:8px">“</div>
+
+      <div style="font-family:var(--fd);font-size:12px;font-weight:300;color:var(--ink);line-height:1.4;letter-spacing:-.01em">Die meisten scheitern nicht am Training. Sie scheitern an der Struktur drumherum.</div>
+
+      <div style="font-family:var(--fd);font-size:8px;font-weight:500;color:var(--tx-m);margin-top:10px;letter-spacing:.06em">Ramon Limacher</div>
+
+    </div>
+
+    <div style="width:160px;aspect-ratio:9/16;border-radius:14px;background:linear-gradient(170deg,var(--bg),#E8F1F8);position:relative;overflow:hidden;flex-shrink:0;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:16px">
+
+      <div style="position:absolute;top:40px;left:14px;right:14px">
+
+        <div style="font-family:var(--fd);font-size:48px;font-weight:200;color:rgba(74,127,163,.12);line-height:1">60</div>
+
+        <div style="font-family:var(--fd);font-size:8px;font-weight:500;color:var(--tx-m);letter-spacing:.08em;text-transform:uppercase;margin-top:-4px">Minuten reichen</div>
+
+      </div>
+
+      <div style="font-family:var(--fd);font-size:11px;font-weight:600;color:var(--ink);margin-bottom:4px">Effizienter trainieren.</div>
+
+      <div style="font-size:8px;color:var(--tx);line-height:1.5">In 60 Minuten mehr erreichen als andere in 2 Stunden. Wenn du smart trainierst.</div>
+
+      <div style="font-family:var(--fd);font-size:7px;font-weight:500;color:var(--action);margin-top:8px;letter-spacing:.08em;text-transform:uppercase">Swipe für Tipps →</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Regeln für Stories</div>
+
+  <div class="prose">
+
+    <p><strong>Text im unteren Drittel.</strong> Das obere Drittel ist für den Profilbild-Bereich und die Kamera-Buttons. Mittleres Drittel für Bild.</p>
+
+    <p><strong>Recovery Green für positive Daten.</strong> Check-In-Ergebnisse, Gewichtsverlust, Fortschritt immer in Balance Green (#6BA08C).</p>
+
+    <p><strong>Zitate zentriert, heller Hintergrund.</strong> Nie auf Fotos. Zitate brauchen Ruhe.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="post-success">
+
+  <div class="sh">
+
+    <div class="sh-num">12 · Success Story</div>
+
+    <h2>Transformation <strong>zeigen</strong></h2>
+
+    <p class="sh-desc">Vorher/Nachher als Carousel. Daten, Zitat, Zeitraum. Kein Clickbait.</p>
+
+  </div>
+
+  <div style="display:flex;gap:8px;overflow-x:auto;padding:24px 0">
+
+    <div style="min-width:200px;aspect-ratio:4/5;border-radius:12px;background:var(--ink);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative;flex-shrink:0">
+
+      <div style="background:rgba(255,255,255,.05);display:flex;align-items:flex-end;justify-content:center;padding:8px">
+
+        <div style="font-family:var(--fd);font-size:8px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase">Vorher</div>
+
+      </div>
+
+      <div style="background:rgba(255,255,255,.1);display:flex;align-items:flex-end;justify-content:center;padding:8px">
+
+        <div style="font-family:var(--fd);font-size:8px;font-weight:500;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase">Nachher</div>
+
+      </div>
+
+      <div style="position:absolute;bottom:10px;left:0;right:0;text-align:center">
+
+        <div style="font-family:var(--fd);font-size:9px;font-weight:600;color:#fff;letter-spacing:.04em">Marco K. · 24 Wochen</div>
+
+      </div>
+
+      <div style="position:absolute;top:0;left:50%;width:1px;bottom:0;background:rgba(255,255,255,.15)"></div>
+
+    </div>
+
+    <div style="min-width:200px;aspect-ratio:4/5;border-radius:12px;background:var(--off);display:flex;flex-direction:column;justify-content:center;padding:20px;border:1px solid var(--line);flex-shrink:0">
+
+      <div style="font-family:var(--fd);font-size:7px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--action);margin-bottom:16px">Die Zahlen</div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+
+        <div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.02em">−12kg</div><div style="font-size:8px;color:var(--tx-m)">Körperfett</div></div>
+
+        <div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--recovery);letter-spacing:-.02em">+3.2kg</div><div style="font-size:8px;color:var(--tx-m)">Muskelmasse</div></div>
+
+        <div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.02em">24 Wo.</div><div style="font-size:8px;color:var(--tx-m)">Zeitraum</div></div>
+
+      </div>
+
+    </div>
+
+    <div style="min-width:200px;aspect-ratio:4/5;border-radius:12px;background:var(--w);display:flex;flex-direction:column;justify-content:center;padding:20px;border:1px solid var(--line);flex-shrink:0">
+
+      <div style="font-family:var(--fd);font-size:32px;font-weight:200;color:var(--action);line-height:1;margin-bottom:8px">“</div>
+
+      <div style="font-family:var(--fd);font-size:12px;font-weight:300;color:var(--ink);line-height:1.45;letter-spacing:-.01em">Zum ersten Mal habe ich einen Plan, der sich an meinen Alltag anpasst.</div>
+
+      <div style="margin-top:12px;display:flex;align-items:center;gap:6px">
+
+        <div style="width:20px;height:20px;border-radius:50%;background:var(--wash);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:7px;font-weight:600;color:var(--action)">MK</div>
+
+        <div><div style="font-family:var(--fd);font-size:8px;font-weight:600;color:var(--ink)">Marco K.</div><div style="font-size:7px;color:var(--tx-m)">Unternehmer, 34</div></div>
+
+      </div>
+
+    </div>
+
+    <div style="min-width:200px;aspect-ratio:4/5;border-radius:12px;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;flex-shrink:0">
+
+      <div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:3px">Physique Alchemy</div>
+
+      <div style="font-family:var(--fd);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px">Physique Alchemy</div>
+
+      <div style="font-family:var(--fd);font-size:10px;font-weight:300;color:rgba(255,255,255,.6);margin-bottom:12px;line-height:1.4">Dein Protokoll wartet.</div>
+
+      <div style="font-family:var(--fd);font-size:8px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;background:var(--action);border-radius:4px;color:#fff">DM «Coach»</div>
+
+    </div>
+
+  </div>
+
+  <div class="sub">Regeln für Success Stories</div>
+
+  <div class="prose">
+
+    <p><strong>Slide 1: Vorher/Nachher Side-by-Side.</strong> Vertikale Trennlinie. Dunkler Hintergrund. Name und Zeitraum unten.</p>
+
+    <p><strong>Slide 2: Nur Zahlen.</strong> Kein Fliesstext. Gewichtsverlust in Anthracite, Muskelaufbau in Recovery Green. Zeitraum neutral.</p>
+
+    <p><strong>Slide 3: Kundenzitat.</strong> Heller Hintergrund, grosses Anführungszeichen, Profilbild-Initial. Nicht mehr als 2 Sätze.</p>
+
+    <p><strong>Slide 4: CTA.</strong> Wie bei jedem Carousel: Logo, ein Satz, Button.</p>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="post-storytelling">
+
+  <div class="sh">
+
+    <div class="sh-num">13 · Storytelling</div>
+
+    <h2>Persönliche <strong>Geschichte</strong></h2>
+
+    <p class="sh-desc">Ramon erzählt. Weniger Design, mehr Authentizität. Bild steht im Vordergrund.</p>
+
+  </div>
+
+  <div class="sc-grid">
+
+    <div class="sc-phone">
+
+      <div class="sc-head"><div class="sc-av">PA</div><div><div class="sc-nm">Physique Alchemy</div><div class="sc-hndl">@pa.protocol</div></div></div>
+
+      <div class="sc-img" style="background:linear-gradient(145deg,#2F3640,#3D5166);display:flex;align-items:center;justify-content:center;padding:24px">
+
+        <div style="text-align:center">
+
+          <div style="font-family:var(--fd);font-size:14px;font-weight:200;color:rgba(255,255,255,.9);line-height:1.35;letter-spacing:-.01em">Mit 13 Jahren war ich<br>der Dünnste im Raum.<br><br><strong style="font-weight:700">11 Jahre später<br>lebe ich den Traum.</strong></div>
+
+        </div>
+
+      </div>
+
+      <div class="sc-cap"><strong>pa.protocol</strong> Links: einer meiner ersten Tage im Gym. 13 Jahre alt, dünn, unsicher. Rechts: 11 Jahre später. Ich glaube an dich. Der Weg ist nicht einfach, aber das Protokoll ist klar.</div>
+
+    </div>
+
+    <div>
+
+      <div class="sub" style="margin-top:0">Wann Storytelling?</div>
+
+      <div class="prose"><p>Wenn Ramon persönlich wird. Eigene Transformation, Rückschläge, Lernmomente. Keine Produkte, keine CTAs im Bild.</p></div>
+
+      <div class="ann"><div class="ann-n">1</div><div class="ann-t"><strong>Bild:</strong> Entweder echtes Foto (minimal bearbeitet) oder reiner Text auf Anthracite. Kein Overlay, kein Marker.</div></div>
+
+      <div class="ann"><div class="ann-n">2</div><div class="ann-t"><strong>Text auf Bild:</strong> Zentriert. Outfit Light für den Setup, Bold für die Pointe. Weiss auf Dunkel.</div></div>
+
+      <div class="ann"><div class="ann-n">3</div><div class="ann-t"><strong>Caption:</strong> Länger als bei anderen Formaten. Persönlich, in erster Person. Darf Absätze haben.</div></div>
+
+      <div class="ann"><div class="ann-n">4</div><div class="ann-t"><strong>Kein CTA.</strong> Storytelling-Posts verkaufen nicht direkt. Sie bauen Vertrauen auf.</div></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="sec" id="cobranding">
+
+  <div class="sh">
+
+    <div class="sh-num">15 · Co-Branding</div>
+
+    <h2>Mit <strong>Partner-Logos</strong></h2>
+
+    <p class="sh-desc">Physique Alchemy links. Trennstrich. Partner rechts. Immer.</p>
+
+  </div>
+
+  <div class="prose">
+
+    <p><strong>Vertikaler Trennstrich</strong> in Cloud (#E2E8EE). Abstand = Clear Space. Gleiche optische Grösse.</p>
+
+    <p><strong>Physique Alchemy steht immer links.</strong> Bei vertikaler Anordnung oben.</p>
+
+    <p><strong>Keine Farbanpassung.</strong> Die Wortmarke bleibt in Anthracite oder Weiss.</p>
+
+  </div>
+
+  <div class="clear-space" style="gap:32px">
+
+    <div class="logo-wm" style="color:#2F3640;font-size:16px">Physique Alchemy</div>
+
+    <div style="width:1px;height:24px;background:var(--cloud)"></div>
+
+    <div style="font-family:var(--fd);font-size:16px;font-weight:600;letter-spacing:.05em;color:var(--tx-l)">Partner</div>
+
+  </div>
+
+</section>
+
+<footer style="padding:40px;text-align:center;border-top:1px solid var(--line)">
+
+  <p style="font-size:11px;color:var(--tx-f)">Physique Alchemy — Visual Identity · v1.0 · März 2026 · Alle Inhalte vertraulich.</p>
+
+</footer>
+
+</div>
+
+<!-- Toast -->
+
+<div class="toast" id="toast">Kopiert</div>
+<script>
+function copyHex(hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    const t = document.getElementById("toast");
+    t.textContent = hex + " kopiert";
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 1800);
+  });
+}
+
+function ilBg(n, mode) {
+  const p = document.getElementById("ilp" + n);
+  const btns = p.querySelectorAll(".ilt");
+  btns.forEach(b => b.classList.remove("on"));
+  if (mode === "dark") {
+    p.classList.add("il-prev-dark");
+    btns[1].classList.add("on");
+    p.querySelectorAll(".ilt-text").forEach(t => t.setAttribute("fill", "#fff"));
+  } else {
+    p.classList.remove("il-prev-dark");
+    btns[0].classList.add("on");
+    p.querySelectorAll(".ilt-text").forEach(t => t.setAttribute("fill", "#2F3640"));
+  }
+}
+
+const links = document.querySelectorAll(".side-link");
+const sections = document.querySelectorAll(".sec, .sec-full");
+
+function updateNav() {
+  let current = "";
+  sections.forEach(s => {
+    if (s.id && s.getBoundingClientRect().top < 200) current = s.id;
+  });
+  links.forEach(l => {
+    l.classList.remove("active");
+    if (l.getAttribute("href") === "#" + current) l.classList.add("active");
+  });
+}
+window.addEventListener("scroll", updateNav);
+updateNav();
+
+const styles = [
+  {
+    name: "Clean",
+    desc: "Weiss. Gradient. Heartbeat-Puls.",
+    when: "Standard f\u00fcr alles. Website, App, Pr\u00e4sentationen, Dokumente. Wenn du unsicher bist: nimm Clean.",
+    bg: "linear-gradient(168deg, #FBFCFD, #F2F8FC 45%, #E4EFF8)",
+    extra: '<canvas class="hb-canvas" style="position:absolute;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1"></canvas>',
+    heartbeat: true,
+  },
+  {
+    name: "Marker",
+    desc: "Highlight auf dem Schl\u00fcsselwort.",
+    when: "Social Media Posts, Ads, Carousel-Slides. \u00dcberall wo ein Wort h\u00e4ngen bleiben muss in unter 2 Sekunden.",
+    bg: "#FFFFFF",
+    extra: "",
+    marker: "#4A7FA3",
+  },
+  {
+    name: "Glow",
+    desc: "Lichtfleck mit Heartbeat-Puls.",
+    when: "Landing Pages, Hero-Sektionen, Coaching-Application-Page. Subtile Tiefe ohne Ablenkung.",
+    bg: "#FFFFFF",
+    extra: '<div style="position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(74,127,163,.1) 0%,transparent 55%)"></div><canvas class="hb-canvas" style="position:absolute;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1"></canvas>',
+    heartbeat: true,
+  },
+  {
+    name: "Topo",
+    desc: "Konturlinien. Ruhig, technisch.",
+    when: "Daten-Kontexte: Check-In Reports, Dashboards, Fortschritts-Visualisierungen, analytische Inhalte.",
+    bg: "#F8FAFC",
+    extra: '<svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><circle cx="420" cy="160" r="50" stroke="rgba(74,127,163,.07)" stroke-width="1"/><circle cx="420" cy="160" r="95" stroke="rgba(74,127,163,.05)" stroke-width="1"/><circle cx="420" cy="160" r="150" stroke="rgba(74,127,163,.04)" stroke-width="1"/><circle cx="420" cy="160" r="210" stroke="rgba(74,127,163,.03)" stroke-width="1"/><circle cx="150" cy="280" r="35" stroke="rgba(74,127,163,.05)" stroke-width="1"/><circle cx="150" cy="280" r="75" stroke="rgba(74,127,163,.035)" stroke-width="1"/><circle cx="150" cy="280" r="120" stroke="rgba(74,127,163,.025)" stroke-width="1"/></svg>',
+  },
+];
+
+function buildH2(s, size, marker) {
+  if (s.marker) {
+    return '<span style="color:#2F3640">Dein K\u00f6rper folgt</span><br><span style="background:' + s.marker + ';color:#fff;padding:' + (marker ? "3px 8px" : "2px 5px") + ';display:inline;line-height:1.55;box-decoration-break:clone;-webkit-box-decoration-break:clone"><strong>deinem System.</strong></span>';
+  }
+  return '<span style="color:#2F3640">Dein K\u00f6rper folgt</span><br><strong style="color:#2F3640">deinem System.</strong>';
+}
+
+var styGrid = document.getElementById("styGrid");
+styles.forEach(function(s, i) {
+  styGrid.innerHTML += '<div class="sty-card" onclick="openStyle(' + i + ')" id="styCard' + i + '"><div class="sty-pv" style="background:' + s.bg + '">' + s.extra + '<div class="sty-tag">Physique Alchemy</div><h3>' + buildH2(s) + '</h3><div class="sty-sub">Evidenzbasiertes Coaching.</div><div class="sty-btn">Coaching anfragen \u2192</div></div><div class="sty-bot"><div><div class="sty-nm">' + s.name + '</div><div class="sty-desc">' + s.desc + '</div></div></div></div>';
+});
+
+function initHeartbeats() {
+  document.querySelectorAll(".hb-canvas").forEach(function(canvas) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var w = rect.width;
+    var h = rect.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    var ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    function ecgY(t) {
+      if (t > 0.1 && t < 0.18) {
+        var p = (t - 0.1) / 0.08;
+        return -Math.sin(p * Math.PI) * 6;
+      }
+      if (t > 0.22 && t < 0.26) {
+        var p = (t - 0.22) / 0.04;
+        return Math.sin(p * Math.PI * 0.5) * 5;
+      }
+      if (t > 0.26 && t < 0.32) {
+        var p = (t - 0.26) / 0.06;
+        return -Math.sin(p * Math.PI) * 28;
+      }
+      if (t > 0.32 && t < 0.36) {
+        var p = (t - 0.32) / 0.04;
+        return Math.sin(p * Math.PI) * 10;
+      }
+      if (t > 0.44 && t < 0.56) {
+        var p = (t - 0.44) / 0.12;
+        return -Math.sin(p * Math.PI) * 8;
+      }
+      return 0;
+    }
+
+    var offset = 0;
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      var midY = h * 0.48;
+      var cycleWidth = 180;
+      offset = (offset + 0.6) % cycleWidth;
+      ctx.beginPath();
+      for (var px = 0; px <= w; px++) {
+        var absX = px + offset;
+        var cyclePos = ((absX % cycleWidth) + cycleWidth) % cycleWidth;
+        var t = cyclePos / cycleWidth;
+        var y = midY + ecgY(t);
+        if (px === 0) ctx.moveTo(px, y);
+        else ctx.lineTo(px, y);
+      }
+      var grad = ctx.createLinearGradient(0, 0, w, 0);
+      grad.addColorStop(0, "rgba(74,127,163,0)");
+      grad.addColorStop(0.15, "rgba(74,127,163,0.1)");
+      grad.addColorStop(0.5, "rgba(74,127,163,0.14)");
+      grad.addColorStop(0.85, "rgba(74,127,163,0.1)");
+      grad.addColorStop(1, "rgba(74,127,163,0)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2;
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.stroke();
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+}
+
+requestAnimationFrame(function() { initHeartbeats(); });
+
+var activeStyle = -1;
+
+function openStyle(i) {
+  var s = styles[i];
+  activeStyle = i;
+  document.querySelectorAll(".sty-card").forEach(function(c) { c.classList.remove("active"); });
+  document.getElementById("styCard" + i).classList.add("active");
+  document.getElementById("sdName").textContent = s.name;
+  document.getElementById("sdPreview").innerHTML = '<div style="position:absolute;inset:0;background:' + s.bg + '"></div>' + s.extra + '<div class="sdp-tag" style="color:#4A7FA3">Physique Alchemy</div><h3>' + buildH2(s, "large", true) + '</h3><p class="sdp-body">Individuelles Coaching f\u00fcr ambitionierte M\u00e4nner, die ihren K\u00f6rper mit Struktur und Daten transformieren wollen.</p><div class="sdp-btn" style="background:#4A7FA3;color:#fff">Coaching anfragen \u2192</div>';
+  document.getElementById("sdInfo").innerHTML = '<div><div class="sdi-label">Beschreibung</div><div class="sdi-desc">' + s.desc + '</div></div><div><div class="sdi-label">Wann einsetzen</div><div class="sdi-when">' + s.when + '</div></div><div><div class="sdi-label">Hintergrund CSS</div><div style="font-family:monospace;font-size:11px;color:#526A82;background:#fff;padding:10px 14px;border-radius:8px;border:1px solid #EDF1F5;word-break:break-all;cursor:pointer" onclick="copyHex(\u0027' + s.bg + '\u0027)">background: ' + s.bg + ';</div></div><div><div class="sdi-label">Palette</div><div style="display:flex;gap:6px"><div style="width:28px;height:28px;border-radius:6px;background:#2F3640"></div><div style="width:28px;height:28px;border-radius:6px;background:#526A82"></div><div style="width:28px;height:28px;border-radius:6px;background:#4A7FA3"></div><div style="width:28px;height:28px;border-radius:6px;background:#E8F1F8"></div><div style="width:28px;height:28px;border-radius:6px;background:#FBFCFD;border:1px solid #E2E8EE"></div></div><div style="font-size:10px;color:#99ADBD;margin-top:6px">Gleiche Palette f\u00fcr alle Styles. Nur der Hintergrund \u00e4ndert sich.</div></div>';
+  var detail = document.getElementById("styDetail");
+  detail.classList.add("open");
+  detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  if (s.heartbeat) {
+    requestAnimationFrame(function() { initHeartbeats(); });
+  }
+}
+
+function closeStyle() {
+  document.getElementById("styDetail").classList.remove("open");
+  document.querySelectorAll(".sty-card").forEach(function(c) { c.classList.remove("active"); });
+  activeStyle = -1;
+}
+</script>
+
+</body>
+</html>
